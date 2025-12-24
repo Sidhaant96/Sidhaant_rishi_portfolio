@@ -1,323 +1,1105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sidhaant Rishi — NVH & CAE Engineer</title>
-<meta name="description" content="Sidhaant Rishi | NVH simulation, modal analysis, topology optimization, ML for mechanical systems. MSc RWTH Aachen. Contact: rishi.sidhaant1@gmail.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidhaant Rishi — Portfolio</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --bg:#0f1724;
-    --card:#0b1220;
-    --muted:#98a0b3;
-    --accent:#2dd4bf;
-    --accent-2:#60a5fa;
-    --glass: rgba(255,255,255,0.04);
-    --radius:14px;
-    --maxw:1100px;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    margin:0;background:linear-gradient(180deg,#071021 0%, #071727 40%, #081022 100%);
-    color:#e6eef8; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    line-height:1.45;
-  }
-  a{color:var(--accent-2);text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:36px auto;padding:28px}
-  header{display:flex;align-items:center;gap:18px;margin-bottom:26px}
-  .avatar{width:86px;height:86px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04202a;font-size:28px;box-shadow:0 6px 30px rgba(2,6,23,0.7)}
-  .nameblock h1{margin:0;font-size:20px;letter-spacing:0.2px}
-  .nameblock p{margin:6px 0 0;color:var(--muted);font-size:13px}
-  .topbar{display:flex;gap:10px;align-items:center;margin-left:auto}
-  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:8px 12px;border-radius:10px;color:#012027;font-weight:700;font-size:13px;box-shadow:0 6px 18px rgba(45,212,191,0.12)}
-  .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--muted);font-size:13px}
-  /* Hero */
-  .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
-  .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);backdrop-filter: blur(6px);box-shadow: 0 6px 30px rgba(2,6,23,0.6)}
-  .title{font-size:28px;margin:0 0 8px}
-  .subtitle{color:var(--muted);margin:0 0 16px}
-  .highlights{display:flex;gap:10px;flex-wrap:wrap}
-  .chip{background:var(--glass);padding:8px 10px;border-radius:10px;color:var(--muted);font-weight:600;font-size:13px}
-  .cta-row{display:flex;gap:10px;margin-top:16px}
-  .cta-link{display:inline-flex;align-items:center;gap:8px}
-  /* right column */
-  .card-side{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));height:100%}
-  .meta{font-size:13px;color:var(--muted);margin-bottom:10px}
-  .stat{font-weight:700;font-size:18px;color:white}
-  /* skills & projects */
-  section{margin:26px 0}
-  .section-title{font-size:16px;margin:0 0 12px;color:#cfeaf0;font-weight:700}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .card{background:rgba(255,255,255,0.02);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);transition:transform .45s cubic-bezier(.2,.9,.3,1), box-shadow .45s;opacity:0;transform:translateY(18px)}
-  .card.show{opacity:1;transform:none}
-  .card h3{margin:0 0 8px;font-size:15px}
-  .card p{color:var(--muted);margin:0;font-size:13px}
-  .skills{display:flex;flex-wrap:wrap;gap:8px}
-  .skill-badge{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 10px;border-radius:999px;font-weight:600;font-size:12px;color:var(--muted)}
-  /* Timeline */
-  .timeline{position:relative;padding-left:16px}
-  .timeline::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:3px;background:linear-gradient(#164e63,#04203a);border-radius:8px}
-  .event{position:relative;padding:14px 12px 14px 26px;margin-bottom:12px;border-radius:12px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
-  .event::before{content:"";position:absolute;left:-5px;top:18px;width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(9,10,12,0.6)}
-  .job-meta{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-  .job-meta h4{margin:0;font-size:14px}
-  .job-meta .date{color:var(--muted);font-size:12px}
-  .job-desc{color:var(--muted);font-size:13px;margin-top:8px}
-  /* footer / contact */
-  footer{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.001));border:1px solid rgba(255,255,255,0.02)}
-  .socials a{margin-left:10px;color:var(--muted);font-weight:700}
-  /* responsive */
-  @media (max-width:980px){
-    .hero{grid-template-columns:1fr;gap:14px}
-    .grid{grid-template-columns:repeat(2,1fr)}
-  }
-  @media (max-width:620px){
-    .grid{grid-template-columns:1fr}
-    .avatar{width:72px;height:72px;font-size:24px}
+:root {
+  --bg: #F7F8FA;
+  --card: #FFFFFF;
+  --text: #1F2933;
+  --muted: #9CA3AF;
+  --accent: #1E3A8A;
+  --accent-2: #1E40AF;
+  --radius: 12px;
+  --max-width: 1100px;
+}
+
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* TOP LEFT TEXT */
+#top-left-text {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+  z-index: 1000;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* TOP RIGHT NAVIGATION */
+
+#top-right-nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#top-right-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+#top-right-nav li {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent-2);
+  font-size: 12px; /* increased font size */
+  transition: color 0.3s, transform 0.2s;
+}
+
+#top-right-nav li:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ===== PROFILE CARD ===== */
+.full-card {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.photo-container img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 4px solid #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.info-section h1 {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.info-section h2 {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.info-section p {
+  font-size: 14px;
+  text-align: justify;
+}
+
+/* ===== EXPERIENCE SECTION ===== */
+.experience-section {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.experience-section h1 {
+  text-align: center;
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 80px;
+}
+
+.timeline-layout {
+  display: grid;
+  grid-template-columns: 1fr 500px; /* timeline on left, details on right */
+  gap: 40px;
+  align-items: start;
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 60px;
+  left: 40px;
+  width: 4px;
+  background: rgba(30, 64, 175, 0.3); /* duller blue line */
+}
+
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  cursor: pointer;
+  transition: color 0.3s, opacity 0.3s;
+}
+
+.timeline-item.muted .summary h3 {
+  color: var(--muted);
+}
+
+/* Dull inactive timeline items */
+.timeline-item.muted .dot {
+  background: #b0b8d0; /* lighter/duller color instead of using opacity */
+  color: #fff;
+  transform: scale(1);
+}
+
+.marker {
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Active dot stays the same */
+.timeline-item.active .dot {
+  background: var(--accent-2);
+  transform: scale(1.1);
+}
+
+.summary h3 {
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.summary p {
+  font-size: 14px;
+}
+
+.detail-panel {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  padding: 30px;
+  position: sticky;
+  top: 100px;
+}
+
+.detail-panel h2 {
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.detail-panel .meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.detail-panel p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .timeline-layout {
+    grid-template-columns: 1fr;
   }
 
-  /* small subtle animations */
-  .fade-in {opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.2,.9,.3,1)}
-  .fade-in.show{opacity:1;transform:none}
-  .float{animation:float 6s ease-in-out infinite}
-  @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  .detail-panel {
+    position: static;
+    margin-top: 40px;
+  }
+}
+
+/* ===== EDUCATION SECTION ===== */
+.education-section {
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.education-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.education-card h1 {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 30px;
+}
+
+.edu-item {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.edu-item h2 {
+  font-size: 20px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.edu-item .meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.edu-item p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* PROJECT SECTION */
+.projects-section {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.projects-section h1 {
+  text-align: center;
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 60px;
+}
+
+/* Layout */
+.projects-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.project-name.active {
+  color: var(--accent);
+  border-left: 4px solid var(--accent);
+  background: rgba(30, 58, 138, 0.05);
+}
+
+.project-detail {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+.project-detail h2 {
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.project-detail p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* SKILLS SECTION */
+.skills-section {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.skills-section h1 {
+  text-align: center;
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+
+.skills-tile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.skill-item {
+  background: var(--card);
+  padding: 10px 16px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-2);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.skill-item:hover {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+.skill-tooltip {
+  position: fixed;
+  background: var(--card);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  font-size: 14px;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 900px) {
+  .timeline-layout, .projects-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-panel {
+    position: static;
+    margin-top: 40px;
+  }
+
+  .edu-item {
+    text-align: center;
+  }
+
+  .project-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .project-name {
+    flex: 0 0 auto;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .project-name.active {
+    border-bottom: 2px solid var(--accent);
+    background: none;
+  }
+}
+
+/* CONTACT SECTION */
+
+.contact-section {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.contact-section h1 {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+
+.contact-card {
+  background: var(--card);
+  padding: 30px 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  display: inline-block;
+  min-width: 280px;
+}
+
+.contact-card p {
+  font-size: 14px;
+  color: var(--text);
+  margin: 10px 0;
+}
+
+.contact-card a {
+  color: var(--accent-2);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-card a:hover {
+  color: var(--accent);
+}
+
+/* CONTACT SECTION - Mobile adjustments */
+@media (max-width: 600px) {
+  .contact-card {
+    width: 100%;
+    padding: 25px 15px;
+  }
+
+  .contact-card p {
+    font-size: 13px;
+  }
+
+}
+
+/* CIRCLE GRADE BAR */
+.grade-bar {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.grade-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e5e7eb; /* empty circle color */
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+/* Filled circle */
+.grade-circle.filled {
+  background: var(--accent-2);
+}
+
+/* Tooltip for grades */
+.grade-tooltip {
+  position: fixed;
+  background: var(--card);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  font-size: 14px;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.project-name .grade-bar {
+  margin-top: 4px;
+  gap: 2px;
+  justify-content: flex-start;
+}
+
+.project-name .grade-circle {
+  width: 10px;
+  height: 10px;
+}
+
+
 </style>
 </head>
+
 <body>
-  <div class="wrap" id="page">
-    <!-- HEADER -->
-    <header>
-      <div class="avatar float">SR</div>
-      <div class="nameblock">
-        <h1 style="font-size:18px;margin:0">Sidhaant Rishi</h1>
-        <p style="margin:6px 0 0">MSc Computer-Aided Mechanical Eng. — NVH Simulation • CAE • ML</p>
-        <div style="font-size:12px;color:var(--muted);margin-top:6px">Aachen, North Rhine-Westphalia, Germany</div>
-      </div>
 
-      <div class="topbar">
-        <a class="ghost" href="mailto:rishi.sidhaant1@gmail.com" title="Email">rishi.sidhaant1@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/sidhaant-rishi" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
-    </header>
+<div id="top-left-text">Portfolio</div>
 
-    <!-- HERO -->
-    <main class="hero">
-      <div class="hero-card fade-in" id="hero">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-          <div>
-            <h2 class="title">NVH Engineer & Simulation Specialist</h2>
-            <p class="subtitle">I combine high-fidelity CAE, structural dynamics, and machine-learning to improve NVH, durability, and system health for electrified drivetrains.</p>
-          </div>
-        </div>
+<!-- TOP RIGHT NAVIGATION -->
+<div id="top-right-nav">
+  <ul>
+    <li data-target="experience-section">Experience</li>
+    <li data-target="education-section">Education</li>
+    <li data-target="projects-section">Projects</li>
+    <li data-target="skills-section">Skills</li>
+    <li data-target="contact-section">Contact</li>
+  </ul>
+</div>
 
-        <div style="margin-top:12px">
-          <div class="section-title">Key results</div>
-          <div class="highlights" style="margin-top:8px">
-            <div class="chip">+16.4% eigenfrequency (EV housing)</div>
-            <div class="chip">85% runtime reduction (Python)</div>
-            <div class="chip">85% RUL accuracy (pump ML)</div>
-            <div class="chip">15% fuel savings (field program)</div>
-          </div>
-          <div class="cta-row" style="margin-top:14px">
-            <a class="btn cta-link" href="mailto:rishi.sidhaant1@gmail.com">Contact</a>
-            <a class="ghost cta-link" href="https://www.linkedin.com/in/sidhaant-rishi" target="_blank" rel="noreferrer">View LinkedIn</a>
-          </div>
-        </div>
-      </div>
-
-      <aside class="card-side fade-in" id="side">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div>
-            <div class="meta">Top Skills</div>
-            <div class="skills">
-              <div class="skill-badge">Modal Analysis</div>
-              <div class="skill-badge">Topology Optimization</div>
-              <div class="skill-badge">Finite Element Method</div>
-              <div class="skill-badge">Multibody Dynamics</div>
-              <div class="skill-badge">Machine Learning</div>
-              <div class="skill-badge">NVH</div>
-            </div>
-          </div>
-
-          <div>
-            <div class="meta">Languages</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <div class="skill-badge">English — Full Professional</div>
-              <div class="skill-badge">Hindi — Native</div>
-              <div class="skill-badge">German — Elementary</div>
-            </div>
-          </div>
-
-          <div>
-            <div class="meta">Tools</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <div class="chip">Python</div>
-              <div class="chip">Abaqus</div>
-              <div class="chip">Ansys</div>
-              <div class="chip">MATLAB</div>
-              <div class="chip">Power BI</div>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <!-- PROJECTS -->
-    <section>
-      <h3 class="section-title">Selected Projects</h3>
-      <div class="grid" id="projects">
-        <article class="card" data-delay="0">
-          <h3>EV Powertrain Housing — NVH Optimization</h3>
-          <p><strong>Result:</strong> +16.4% average eigenfrequency while keeping system mass constant. Improved NVH through modal sensitivity and targeted design changes.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> Abaqus, Python, CAD • <strong>Methods:</strong> Modal analysis, eFAST sensitivity, topology trade-offs</p>
-        </article>
-
-        <article class="card" data-delay="80">
-          <h3>Elastomeric Coupling — Runtime Optimization</h3>
-          <p><strong>Result:</strong> Translated MATLAB model to Python and optimized runtime by 85% with vectorized operations to enable faster MBD simulations.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> MATLAB → Python • <strong>Focus:</strong> vectorization, numerical stability</p>
-        </article>
-
-        <article class="card" data-delay="160">
-          <h3>Coolant Pump Health Monitoring — ML</h3>
-          <p><strong>Result:</strong> Developed anomaly detection (75%+ training accuracy) and RUL prediction models (85%+), enabling predictive maintenance insights.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> Python, scikit-learn, feature engineering</p>
-        </article>
-
-        <article class="card" data-delay="240">
-          <h3>Damped Pendulum — Physics-Informed NN</h3>
-          <p><strong>Result:</strong> R² = 0.99 on test data. Used physics-based synthetic datasets to train PINN that reproduces analytical dynamics with high fidelity.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> Python, NumPy, TensorFlow/PyTorch</p>
-        </article>
-
-        <article class="card" data-delay="320">
-          <h3>Bicycle Tire Pressure Estimation (ANN)</h3>
-          <p><strong>Result:</strong> 82% classification accuracy using smartphone IMU data and MATLAB feature extraction.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> MATLAB, Python • <strong>Focus:</strong> feature engineering & mobile sensing</p>
-        </article>
-
-        <article class="card" data-delay="400">
-          <h3>Field Program — Fuel Efficiency (L&T Komatsu)</h3>
-          <p><strong>Result:</strong> Reduced fuel use by 15% for 60-ton dump trucks by combining Power BI analytics and cross-functional interventions.</p>
-          <p style="margin-top:8px;color:var(--muted)"><strong>Tools:</strong> Power BI, field testing</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE TIMELINE -->
-    <section>
-      <h3 class="section-title">Experience</h3>
-      <div class="timeline" id="timeline">
-        <div class="event" data-delay="0">
-          <div class="job-meta">
-            <h4>Student Research Assistant — Institute for Machine Elements & Systems Engineering, RWTH Aachen</h4>
-            <div class="date">Mar 2023 – Jul 2025</div>
-          </div>
-          <div class="job-desc">
-            • Meshed and performed modal analysis of electrical drive components in Abaqus for elastic-multibody simulations.<br>
-            • Translated MATLAB elastomeric coupling to Python (85% faster).<br>
-            • Updated clutch adapter CAD and developed ML models for coolant pump health monitoring (75% anomaly, 85% RUL).
-          </div>
-        </div>
-
-        <div class="event" data-delay="80">
-          <div class="job-meta">
-            <h4>Application Engineer — L&T Komatsu Ltd</h4>
-            <div class="date">Jul 2018 – Nov 2020</div>
-          </div>
-          <div class="job-desc">
-            • Solved fuel efficiency issues for 60-ton dump trucks; implemented analytics-driven interventions leading to 15% fuel savings.<br>
-            • Built operator workflows and improved diagnostics.
-          </div>
-        </div>
-
-        <div class="event" data-delay="160">
-          <div class="job-meta">
-            <h4>Manufacturing Engineering Intern — Bajaj Auto Ltd</h4>
-            <div class="date">Jun 2017 – Jul 2017</div>
-          </div>
-          <div class="job-desc">
-            • Value stream mapping in paint shop; reduced lead time by 4% via bottleneck mitigation and process changes.
-          </div>
-        </div>
-
-        <div class="event" data-delay="240">
-          <div class="job-meta">
-            <h4>Finite Element Analyst — Aero X Racing</h4>
-            <div class="date">Feb 2015 – Feb 2017</div>
-          </div>
-          <div class="job-desc">
-            • Structural and thermal FEA for Formula Student components; optimized chassis & brake disc for weight reduction while maintaining strength.
-          </div>
-        </div>
-
-        <div class="event" data-delay="320">
-          <div class="job-meta">
-            <h4>Vehicle Inspection Intern — Maruti Suzuki India Limited</h4>
-            <div class="date">Jun 2016 – Jul 2016</div>
-          </div>
-          <div class="job-desc">
-            • Investigated water ingress during shower testing; data-driven recommendations to improve sealing performance.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION + AWARDS -->
-    <section class="grid" style="grid-template-columns:1fr 1fr;gap:18px">
-      <div class="card" data-delay="0">
-        <h3>Education</h3>
-        <p><strong>RWTH Aachen University — M.Sc. Computer Aided Conception & Production (2021–2024)</strong><br>
-        Grade: 1.8 (German) / 8.6/10 (Indian). Thesis: NVH design features for electrified powertrain housings — <strong>+16.4% eigenfrequency</strong> (grade 1.0).</p>
-        <p style="margin-top:8px"><strong>SRM University — B.Tech Automobile Engineering (2014–2018)</strong><br>Grade: 1.6 (German) / 8.9/10 (Indian).</p>
-      </div>
-
-      <div class="card" data-delay="120">
-        <h3>Honors & Awards</h3>
-        <p>• 1st place — Simulation competition: chipset optimization (thermal + NN) — cost reduced by 82% from initial model.<br>
-        • Best Performance — Mining Equipment Business, Larsen & Toubro.</p>
-      </div>
-    </section>
-
-    <!-- CONTACT / FOOTER -->
-    <footer>
-      <div>
-        <div style="font-weight:700">Let’s build quieter, lighter and smarter mechanical systems.</div>
-        <div style="color:var(--muted);margin-top:6px">Email: <a href="mailto:rishi.sidhaant1@gmail.com">rishi.sidhaant1@gmail.com</a> • <a href="https://www.linkedin.com/in/sidhaant-rishi" target="_blank" rel="noreferrer">LinkedIn</a></div>
-      </div>
-      <div class="socials">
-        <a class="ghost" href="mailto:rishi.sidhaant1@gmail.com">Email</a>
-        <a class="btn" href="https://www.linkedin.com/in/sidhaant-rishi" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
-    </footer>
+<!-- PROFILE CARD -->
+<div class="full-card" id="full-card">
+  <div class="photo-container">
+    <img src="Sidhaant Rishi.png" alt="Sidhaant Rishi">
   </div>
+  <div class="info-section">
+    <h1>Sidhaant Rishi</h1>
+    <h2>MSc. Computer-Aided Conception and Production in Mechanical Engineering</h2>
+    <p>
+      Passionate mechanical engineer with a strong focus on NVH, structural dynamics,
+      and machine learning applications. Motivated to optimize mechanical systems
+      through high-fidelity simulations and data-driven solutions.
+    </p>
+  </div>
+</div>
 
+<!-- EXPERIENCE SECTION -->
+<section class="experience-section" id="experience-section">
+  <h1>Experience</h1>
+  <div class="timeline-layout">
+    <div class="timeline">
+      <div class="timeline-item active" data-id="0">
+        <div class="marker"><div class="dot">1</div></div>
+        <div class="summary">
+          <h3>Student Research Assistant (HiWi)</h3>
+          <p>RWTH Aachen University<br>(03/2023 – 07/2025)</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-id="1">
+        <div class="marker"><div class="dot">2</div></div>
+        <div class="summary">
+          <h3>Application Engineer</h3>
+          <p>Larsen & Toubro Ltd<br>(07/2018 – 11/2020)</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-id="2">
+        <div class="marker"><div class="dot">3</div></div>
+        <div class="summary">
+          <h3>Manufacturing Engg. Intern</h3>
+          <p>Bajaj Auto Ltd<br>(06/2017 – 07/2017)</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-id="3">
+        <div class="marker"><div class="dot">4</div></div>
+        <div class="summary">
+          <h3>Vehicle Inspection Intern</h3>
+          <p>Maruti Suzuki India Ltd<br>(06/2016 – 07/2016)</p>
+        </div>
+      </div>
+    </div>
+    <div class="detail-panel" id="detailPanel">
+      <h2>Student Research Assistant (HiWi)</h2>
+      <div class="meta">RWTH Aachen University · 03/2023 – 07/2025</div>
+      <p>• Conducted meshing and modal analysis of electric drive components in Abaqus to optimize structural performance and minimize vibration risks.</p>
+      <p>• Converted an elastomeric coupling model from MATLAB to Python, improving runtime by 82%, and simulated output torque using frequency and amplitude sweeps.</p>
+      <p>• Updated clutch adapter CAD models for multi-configuration compatibility, enhancing test-bench flexibility to accommodate different clutch sizes.</p>
+      <p>• Developed ML-based health monitoring models for coolant pumps, achieving 75%+ anomaly detection and 85%+ RUL (Remaining Useful Life) prediction accuracy.</p>
+  <p>• Collected acceleration vs. time data on the test bench to train ML models, including run-up from idle to 7000 rpm and run-down simulations, capturing performance across varying coolant temperatures and pressures.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION SECTION -->
+<section class="education-section" id="education-section">
+  <div class="education-card">
+    <h1>Education</h1>
+    <div class="edu-item">
+      <h2>MSc. Computer-Aided Conception and Production in Mechanical Engineering</h2>
+      <div class="meta">RWTH Aachen University, Germany · 10/2021 – 05/2025</div>
+      <p>Relevant Coursework: Advanced Finite Element Methods, Continuum Mechanics, Multibody Dynamics, Artificial Neural Network</p>
+      <p> Grade: 1.8/5.0 gpa </p>
+    </div>
+    <div class="edu-item">
+      <h2>BSc. Automobile Engineering</h2>
+      <div class="meta">SRM Institute of Science and Technology, India · 07/2014 – 07/2018</div>
+      <p>Relevant Coursework: Mechanics of Materials, Thermodynamics, Automotive Transmissions</p>
+      <p> Grade: 8.98/10.0 gpa </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section class="projects-section" id="projects-section">
+  <h1>Projects</h1>
+  <div class="projects-layout">
+    <div class="project-list">
+      <div class="project-name active" data-id="0">Master's Thesis</div>
+      <div class="project-name" data-id="1">Research Project</div>
+      <div class="project-name" data-id="2">Angular Positioning</div>
+      <div class="project-name" data-id="3">Tire Pressure Monitoring</div>
+    </div>
+    <div class="project-detail" id="projectDetail">
+      <h2>Identification of Structural Dynamic Design Elements through the Topology Optimization of Housing Components in Electrified Powertrains</h2>
+      <p>• Achieved an overall 16.4% increase in the first three eigenfrequencies of drivetrain housings, improving structural dynamic stiffness relevant to EV NVH</p>  
+
+ <p>• Mode-wise improvements on a representative left-side drive mount: 1st bending mode 2007 to 2579 Hz, 2nd mode 2803 to 3189 Hz, mass maintained (4 kg)</p>
+
+  <p>• Conducted multi-variant topology optimization on 8 components, generating 18 design variants per component</p>
+
+  <p>• Automated CAE workflow integrating MATLAB, Python, and Abaqus eliminated manual setup of 100+ models, enabling rapid large-scale simulation and design-space exploration.
+The workflow supported optimization and analysis of (108 models) within one week, demonstrating workflow efficiency</p>
+
+  <p>• Applied voxel-based spatial classification to extract recurring geometric features (ribs, curvature, edges) and transfer them to baseline geometries, achieving performance gains without rerunning optimization</p>
+
+  <p>• Established a generalizable methodology extensible to downstream analyses like transfer path analysis, reducing reliance on empirical rules and prototyping</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section class="skills-section" id="skills-section">
+  <h1>Skills</h1>
+  <div class="skills-tile">
+    <div class="skill-item" data-projects="Master's Thesis, Research Project, Course work, HiWi">FEM Simulation</div>
+    <div class="skill-item" data-projects="Master's Thesis, Research Project, Course work, HiWi">Modal Analysis</div>
+    <div class="skill-item" data-projects="Master's Thesis, Research Project, HiWi">Structural Dynamics</div>
+    <div class="skill-item" data-projects="Research Project, Course Work">Multibody Dynamics</div>
+    <div class="skill-item" data-projects="Master's Thesis">Topology Optimization</div>
+    <div class="skill-item" data-projects="HiWi, Course work, Angular Position of Damped Pendulum Project, Tire Pressure Monitoring Project">Machine Learning</div>
+    <div class="skill-item" data-projects=" Research Project, HiWi,  Angular Position of Damped Pendulum Project, Tire Pressure Monitoring Project">Signal Processing</div>
+<div class="skill-item" data-projects="Master's Thesis, HiWi">Computer-Aided Design</div>
+<div class="skill-item" data-projects="Master's Thesis, HiWi">Abaqus</div>
+<div class="skill-item" data-projects="Course work, Thermal Stress Analysis of Chipset">ANSYS</div>
+<div class="skill-item" data-projects="Master's Thesis, Tire Pressure Monitoring Project">MATLAB</div> 
+<div class="skill-item" data-projects="Master's Thesis, Angular Position of Damped Pendulum Project">Python</div>
+   
+  </div>
+  <div class="skill-tooltip" id="skillTooltip"></div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact-section">
+  <h1>Contact</h1>
+  <div class="contact-card">
+    <p><strong>Email:</strong> <a href="mailto: rishi.sidhaant1@gmail.com">rishi.sidhaant1@gmail.com</a></p>
+    <p><strong>Phone:</strong> 
+      <a href="tel:+49 176 588 32186">+49 176 588 32186</a> | 
+      <a href="tel:+91 886 00 37979">+91 886 003 7979</a>
+    </p>
+    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/sidhaant-rishi" target="_blank">linkedin.com/in/sidhaant-rishi</a></p>
+  </div>
+</section>
+
+<!-- ===== SCRIPTS ===== -->
 <script>
-  // Simple reveal on scroll with delay attribute
-  (function(){
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('show');
-          io.unobserve(entry.target);
-        }
-      });
-    }, {threshold: 0.12});
+// ===== TIMELINE CLICK =====
+const timelineItems = document.querySelectorAll('.timeline-item');
+const detailPanel = document.getElementById('detailPanel');
 
-    document.querySelectorAll('.card, .fade-in, .event').forEach(el=>{
-      const d = parseInt(el.dataset.delay || '0', 10);
-      el.style.transitionDelay = (d/1000) + 's';
-      io.observe(el);
+const timelineData = [
+  {
+    title: "Student Research Assistant",
+    meta: "RWTH Aachen University · 03/2023 – 07/2025",
+    details: [ 
+"Conducted meshing and modal analysis of electric drive components in Abaqus to optimize structural performance and minimize vibration risks.", 
+
+"Converted an elastomeric coupling model from MATLAB to Python, improving runtime by 82%, and simulated output torque using frequency and amplitude sweeps.", 
+
+"Updated clutch adapter CAD models for multi-configuration compatibility, enhancing test-bench flexibility to accommodate different clutch sizes.",
+
+"Developed ML-based health monitoring models for coolant pumps, achieving 75%+ anomaly detection and 85%+ RUL (Remaining Useful Life) prediction accuracy.",
+
+"Collected acceleration vs. time data on the test bench to train ML models, including run-up from idle to 7000 rpm and run-down simulations, capturing performance across varying coolant temperatures and pressures."
+   
+	 ]
+  },
+  {
+    title: "Application Engineer",
+    meta: "Larsen & Toubro Ltd · 07/2018 – 11/2020",
+    details: [
+"Conducted onsite performance assessments and testing of heavy machinery, including Dozers, Dump Trucks, Excavators, and Wheel Loaders, analyzing operational data to optimize efficiency and ensure peak performance for clients.",
+
+"Diagnosed and resolved fuel efficiency issues in 60-ton dump trucks, achieving a 15% reduction in fuel consumption through calibration adjustments and operational recommendations.", 
+
+"Developed performance reports and dashboards using Power BI, providing clients with actionable insights on operational efficiency, maintenance needs, and cost-saving opportunities.", 
+
+"Collaborated with cross-functional teams to implement field-based efficiency improvements and validate their impact on equipment performance."
+    ]
+  },
+  {
+    title: "Manufacturing Engg. Intern",
+    meta: "Bajaj Auto Ltd · 06/2017 – 07/2017",
+    details: [
+"Conducted value stream mapping in the automotive paint shop, identifying process bottlenecks and proposing changes that improved throughput and reduced lead time by 4%.",
+
+"Led a Kaizen initiative by evaluating different paint and lacquer application methods, optimizing the process to reduce application and drying times.",
+
+"Performed detailed process analysis and timing studies to pinpoint bottlenecks and implement efficiency improvements."
+    ]
+  },
+  {
+    title: "Vehicle Inspection Intern",
+    meta: "Maruti Suzuki India Ltd · 06/2016 – 07/2016",
+    details: [
+"Investigated vehicle water ingress issues during shower testing, observed defect patterns, and suggested potential improvements for better sealing performance.",
+
+"Performed hands-on inspections of vehicle components and assemblies to identify issues affecting durability and performance.",
+
+"Presented observations and recommendations to engineers, contributing to design improvements."
+    ]
+  }
+];
+
+// Initialize: mute all except first active
+timelineItems.forEach(item => {
+  if (!item.classList.contains('active')) item.classList.add('muted');
+});
+
+timelineItems.forEach(item => {
+  item.addEventListener('click', () => {
+    timelineItems.forEach(i => {
+      i.classList.remove('active');
+      i.classList.add('muted');
     });
 
-    // Smooth anchor scrolling for future use
-    if(history.scrollRestoration) history.scrollRestoration = 'manual';
-    document.documentElement.style.scrollBehavior = 'smooth';
-  })();
+    item.classList.add('active');
+    item.classList.remove('muted');
+
+    const data = timelineData[item.dataset.id];
+    detailPanel.innerHTML = `<h2>${data.title}</h2>
+                             <div class="meta">${data.meta}</div>
+                             ${data.details.map(d => `<p>• ${d}</p>`).join('')}`;
+  });
+});
+
+// ===== PROJECT PANEL =====
+const projectsData = [
+  {
+    title: "Identification of Structural Dynamic Design Elements through the Topology Optimization of Housing Components in Electrified Powertrains",
+    details: [
+  `Achieved an overall 16.4% increase in the first three eigenfrequencies of drivetrain housings, improving structural dynamic stiffness relevant to EV NVH`, 
+
+  `Mode-wise improvements on a representative left-side drive mount: 1st bending mode 2007 to 2579 Hz, 2nd mode 2803 to 3189 Hz, mass maintained (4 kg)`, 
+
+  `Conducted multi-variant topology optimization on 8 components, generating 18 design variants per component.`,   
+
+  `Automated CAE workflow integrating MATLAB, Python, and Abaqus eliminated manual setup of 100+ models, enabling rapid large-scale simulation and design-space exploration.
+The workflow supported optimization and analysis of (108 models) within one week, demonstrating workflow efficiency`,  
+
+  `Applied voxel-based spatial classification to extract recurring geometric features (ribs, curvature, edges) and transfer them to baseline geometries, achieving performance gains without rerunning optimization`, 
+
+  `Established a generalizable methodology extensible to downstream analyses like transfer path analysis, reducing reliance on empirical rules and prototyping`
+    ]
+  },
+  {
+    title: "Identifying sensitive modelling parameters on the NVH behaviour of an electrical machine",
+    details: [
+  `Performed sensitivity analysis on an electrical machine to study NVH behaviour across multiple RPM ranges`, 
+
+  `Used the Morris Method to efficiently screen and rank input parameters, reducing computational cost for subsequent analysis`, 
+
+
+  `Ran eMBS simulations in FIRST software with parameter variations applied via Python scripts and Excel configuration files`, 
+
+  `Applied the μ* metric from Morris Method to handle non-monotonic, time-dependent outputs`, 
+
+  `Performed eFAST to quantify first-order and total effects, capturing both direct contributions and parameter interactions`, 
+
+  `Managed over 120 model evaluations using multi-processing, covering the parameter space while minimizing computation time`, 
+
+ `Identified critical input parameters that dominate NVH response trends, guiding focused engineering efforts to improve system performance without exhaustive experimentation`, 
+
+  `Normalized sensitivity trends over RPM ranges provided insights for informed design optimization of electrical machine components`
+
+    ]
+  },
+  {
+    title: "Angular Position Prediction of a Damped Pendulum using Physics-Informed Artificial Neural Network",
+    details: [
+ `Collaborated in a team to develop a physics-informed neural network for predicting angular positions of a damped pendulum, integrating training data with the governing differential equation for accurate modeling`, 
+
+  `Contributed to hyperparameter optimization using a grid search approach, tuning activation functions, number of hidden layers, neurons per layer, learning rate, residual factor, and training epochs to maximize model accuracy`, 
+
+  `Executed model training and validation using Flux.jl in Julia, ensuring efficient batch processing, convergence, and reproducibility of results`, 
+
+  `Performed comparative analysis against analytical and numerical solutions, achieving an R² score of 0.99 using the optimized network architecture`, 
+
+  `Documented methodology, workflow, and findings in the project report, highlighting key insights and lessons learned from the neural network implementation`, 
+
+  `Demonstrated the importance of periodic activation functions and balanced network architecture for efficient, scalable, and accurate physics-informed modeling`
+]
+  },
+
+  {
+    title: "Intelligent Monitoring of the Bicycle Tire Pressure",
+    details: [
+`Collaborated in a team to design and implement a fully connected feed-forward neural network to predict bicycle tire pressures using acceleration data collected from normal and fat bikes`, 
+
+  `Engaged in data preprocessing workflow, including histogram binning of acceleration data to standardize inputs across six different measurement groups for accurate model training`, 
+
+  `Contributed to network generation, including defining the architecture with 3 hidden layers (7, 10, 7 neurons) and an input/output layer aligned with histogram-based feature vectors`, 
+
+  `Performed training of the neural network using Resilient Backpropagation, implementing k-fold cross-validation to evaluate model performance and generalization capability`, 
+ 
+`Documented methodology, architecture, training process, and project findings, ensuring clear reporting of workflow, hyperparameter selection, and evaluation results`, 
+ 
+]
+  }
+];
+
+const projectNames = document.querySelectorAll('.project-name');
+const projectDetail = document.getElementById('projectDetail');
+
+// Create a single tooltip for grades
+const gradeTooltip = document.createElement('div');
+gradeTooltip.classList.add('grade-tooltip');
+document.body.appendChild(gradeTooltip);
+
+projectNames.forEach(name => {
+  const gradesMap = {
+    "Master's Thesis": {filled: 10, grade: "1.0", text: "Very Good"},
+    "Research Project": {filled: 8, grade: "1.7", text: "Good"},
+    "Angular Positioning": {filled: 9, grade: "1.3", text: "Very Good"},
+    "Tire Pressure Monitoring": {filled: 8, grade: "1.7", text: "Good"}
+  };
+
+  const data = gradesMap[name.innerText];
+  if (!data) return;
+
+  const container = document.createElement('div');
+  container.classList.add('grade-bar');
+
+  for (let i = 1; i <= 10; i++) {
+    const circle = document.createElement('div');
+    circle.classList.add('grade-circle');
+    if (i <= data.filled) circle.classList.add('filled');
+
+     // ===== TOOLTIP EVENT LISTENERS =====
+    circle.addEventListener('mouseenter', () => {
+      gradeTooltip.innerText = "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)\nGrades: 1.0, 1.3, 1.7, 2.0, 2.3, 2.7, ..., 4.0, 5.0";
+      gradeTooltip.style.opacity = '1';
+    });
+    circle.addEventListener('mousemove', (e) => {
+      const padding = 8;
+      let x = e.clientX + padding;
+      let y = e.clientY + padding;
+      const rect = gradeTooltip.getBoundingClientRect();
+      if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - padding;
+      if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - padding;
+      gradeTooltip.style.left = x + 'px';
+      gradeTooltip.style.top = y + 'px';
+    });
+    circle.addEventListener('mouseleave', () => {
+      gradeTooltip.style.opacity = '0';
+    });
+
+    container.appendChild(circle);
+  }
+
+  const gradeText = document.createElement('span');
+  gradeText.style.fontSize = '12px'; // smaller font
+  gradeText.style.marginLeft = '6px';
+  gradeText.innerText = `${data.grade} (${data.text})`;
+  // ===== TOOLTIP EVENTS FOR TEXT =====
+  gradeText.addEventListener('mouseenter', () => {
+    gradeTooltip.innerText = "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)\nGrades: 1.0, 1.3, 1.7, 2.0, 2.3, 2.7, ..., 4.0, 5.0";
+    gradeTooltip.style.opacity = '1';
+  });
+  gradeText.addEventListener('mousemove', (e) => {
+    const padding = 8;
+    let x = e.clientX + padding;
+    let y = e.clientY + padding;
+    const rect = gradeTooltip.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - padding;
+    if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - padding;
+    gradeTooltip.style.left = x + 'px';
+    gradeTooltip.style.top = y + 'px';
+  });
+  gradeText.addEventListener('mouseleave', () => {
+    gradeTooltip.style.opacity = '0';
+  });
+
+  container.appendChild(gradeText);
+
+  name.appendChild(container); // append under project name
+
+    // --- Add click listener to update project detail ---
+  name.addEventListener('click', () => {
+    projectNames.forEach(n => n.classList.remove('active'));
+    name.classList.add('active');
+
+    const project = projectsData[name.dataset.id];
+    projectDetail.innerHTML = `<h2>${project.title}</h2>
+      ${project.details.map(d => `<p>• ${d}</p>`).join('')}`;
+  });
+});
+
+
+// ===== TOP-LEFT AND TOP-RIGHT FADE ON SCROLL =====
+const topLeftText = document.getElementById('top-left-text');
+const topRightNav = document.getElementById('top-right-nav');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  topLeftText.style.opacity = scrollY > 20 ? '0' : '1';
+  topLeftText.style.transform = scrollY > 20 ? 'translateY(-20px)' : 'translateY(0)';
+
+  topRightNav.style.opacity = scrollY > 20 ? '0' : '1';
+  topRightNav.style.transform = scrollY > 20 ? 'translateY(-20px)' : 'translateY(0)';
+});
+
+// ===== SMOOTH SCROLL FOR TOP-RIGHT NAV =====
+const navItems = document.querySelectorAll('#top-right-nav li');
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const targetId = item.dataset.target;
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const offset = targetElement.offsetTop - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+  });
+});
+
+// ===== SKILL TOOLTIP (SMART POSITIONING) =====
+const skillItems = document.querySelectorAll('.skill-item');
+const skillTooltip = document.getElementById('skillTooltip');
+
+skillItems.forEach(skill => {
+  skill.addEventListener('mouseenter', () => {
+    skillTooltip.innerText = `Applied in: ${skill.dataset.projects}`;
+    skillTooltip.style.opacity = '1';
+  });
+
+  skill.addEventListener('mousemove', (e) => {
+    const tooltipRect = skillTooltip.getBoundingClientRect();
+    const padding = 12;
+
+    let x = e.clientX + padding; // default right
+    let y = e.clientY + padding; // default below
+
+    // Flip horizontally if overflowing right
+    if (x + tooltipRect.width > window.innerWidth) {
+      x = e.clientX - tooltipRect.width - padding; // move left
+    }
+
+    // Prevent going off left edge
+    if (x < padding) x = padding;
+
+    // Flip vertically if overflowing bottom
+    if (y + tooltipRect.height > window.innerHeight) {
+      y = e.clientY - tooltipRect.height - padding; // move above
+    }
+
+    // Prevent going off top edge
+    if (y < padding) y = padding;
+
+    skillTooltip.style.left = x + 'px';
+    skillTooltip.style.top = y + 'px';
+  });
+
+  skill.addEventListener('mouseleave', () => {
+    skillTooltip.style.opacity = '0';
+    skillTooltip.innerText = ''; // clear content to avoid sticking
+  });
+});
+
+// ===== EDUCATION GRADES DATA =====
+const eduGradesMap = {
+  "MSc. Computer-Aided Conception and Production in Mechanical Engineering": {
+    filled: 8,
+    grade: "1.8",
+    text: "German Scale",
+    scale: "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)"
+  },
+  "BSc. Automobile Engineering": {
+    filled: 9, // approximate filling for 8.98/10
+    grade: "8.98",
+    text: "Indian Scale",
+    scale: "Indian Scale: 10.0 (Excellent) → 5.0 (Pass), <5 Fail"
+  }
+};
+
+const eduItems = document.querySelectorAll('.edu-item');
+
+// Create a single tooltip for education grades
+const eduTooltip = document.createElement('div');
+eduTooltip.classList.add('grade-tooltip');
+document.body.appendChild(eduTooltip);
+
+eduItems.forEach(item => {
+  const title = item.querySelector('h2').innerText;
+  const data = eduGradesMap[title];
+  if (!data) return;
+
+  // Create grade bar container
+  const container = document.createElement('div');
+  container.classList.add('grade-bar');
+
+  // Create 10 circles, fill only first `data.filled`
+  for (let i = 1; i <= 10; i++) {
+    const circle = document.createElement('div');
+    circle.classList.add('grade-circle');
+    if (i <= data.filled) circle.classList.add('filled');
+
+    // Tooltip events
+    circle.addEventListener('mouseenter', () => {
+      eduTooltip.innerText = data.scale;
+      eduTooltip.style.opacity = '1';
+    });
+    circle.addEventListener('mousemove', e => {
+      const padding = 8;
+      eduTooltip.style.left = (e.clientX + padding) + 'px';
+      eduTooltip.style.top = (e.clientY + padding) + 'px';
+    });
+    circle.addEventListener('mouseleave', () => {
+      eduTooltip.style.opacity = '0';
+    });
+
+    container.appendChild(circle);
+  }
+
+  // Grade text
+  const gradeText = document.createElement('span');
+  gradeText.style.fontSize = '12px';
+  gradeText.style.marginLeft = '6px';
+  gradeText.innerText = `${data.grade} (${data.text})`;
+
+  // Tooltip for grade text
+  gradeText.addEventListener('mouseenter', () => {
+    eduTooltip.innerText = data.scale;
+    eduTooltip.style.opacity = '1';
+  });
+  gradeText.addEventListener('mousemove', e => {
+    const padding = 8;
+    eduTooltip.style.left = (e.clientX + padding) + 'px';
+    eduTooltip.style.top = (e.clientY + padding) + 'px';
+  });
+  gradeText.addEventListener('mouseleave', () => {
+    eduTooltip.style.opacity = '0';
+  });
+
+  container.appendChild(gradeText);
+
+  // Remove old grade paragraph if exists
+  const oldGrade = Array.from(item.querySelectorAll('p')).find(p => p.innerText.includes('Grade'));
+  if (oldGrade) oldGrade.remove();
+
+  // Append new grade bar
+  item.appendChild(container);
+});
+
 </script>
 </body>
 </html>
