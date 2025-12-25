@@ -123,13 +123,13 @@ body {
 }
 
 .info-section h2 {
-  font-size: 22px;
+  font-size: 20px;
   color: var(--muted);
   margin-bottom: 20px;
 }
 
 .info-section p {
-  font-size: 18px;
+  font-size: 16px;
   text-align: justify;
 }
 
@@ -927,7 +927,22 @@ projectNames.forEach(name => {
     container.appendChild(circle);
   }
 
-  const gradeText = document.createElement('span');
+const gradeContainer = document.createElement('div');
+gradeContainer.classList.add('grade-text-container');
+
+const gradeValue = document.createElement('div');
+gradeValue.classList.add('grade-value');
+gradeValue.innerText = data.grade;
+
+const gradeLabel = document.createElement('div');
+gradeLabel.classList.add('grade-label');
+gradeLabel.innerText = data.text;
+
+gradeContainer.appendChild(gradeValue);
+gradeContainer.appendChild(gradeLabel);
+
+container.appendChild(gradeContainer);
+
   gradeText.style.fontSize = '16px'; // smaller font
   gradeText.style.marginLeft = '6px';
   gradeText.innerText = `${data.grade} (${data.text})`;
@@ -1124,6 +1139,7 @@ eduItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
