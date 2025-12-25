@@ -423,6 +423,25 @@ body {
   z-index: 1000;
   white-space: nowrap;
 }
+	.grade-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* right aligned */
+  margin-left: 6px;
+}
+
+.grade-value {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.grade-label {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.1;
+}
+
 
 /* MOBILE ADJUSTMENTS */
 @media (max-width: 900px) {
@@ -1139,6 +1158,7 @@ eduItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
