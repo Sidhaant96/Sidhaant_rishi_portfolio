@@ -962,30 +962,6 @@ gradeContainer.appendChild(gradeLabel);
 
 container.appendChild(gradeContainer);
 
-  gradeText.style.fontSize = '16px'; // smaller font
-  gradeText.style.marginLeft = '6px';
-  gradeText.innerText = `${data.grade} (${data.text})`;
-  // ===== TOOLTIP EVENTS FOR TEXT =====
-  gradeText.addEventListener('mouseenter', () => {
-    gradeTooltip.innerText = "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)\nGrades: 1.0, 1.3, 1.7, 2.0, 2.3, 2.7, ..., 4.0, 5.0";
-    gradeTooltip.style.opacity = '1';
-  });
-  gradeText.addEventListener('mousemove', (e) => {
-    const padding = 8;
-    let x = e.clientX + padding;
-    let y = e.clientY + padding;
-    const rect = gradeTooltip.getBoundingClientRect();
-    if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - padding;
-    if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - padding;
-    gradeTooltip.style.left = x + 'px';
-    gradeTooltip.style.top = y + 'px';
-  });
-  gradeText.addEventListener('mouseleave', () => {
-    gradeTooltip.style.opacity = '0';
-  });
-
-  container.appendChild(gradeText);
-
   name.appendChild(container); // append under project name
 
     // --- Add click listener to update project detail ---
@@ -1158,6 +1134,7 @@ eduItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
