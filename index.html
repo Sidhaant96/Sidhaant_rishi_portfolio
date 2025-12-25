@@ -16,7 +16,7 @@
   --accent: #1E3A8A;
   --accent-2: #1E40AF;
   --radius: 12px;
-  --max-width: 1400px;
+  --max-width: 1300px;
 }
 
 /* LOCAL FONTS */
@@ -151,7 +151,7 @@ body {
 
 .timeline-layout {
   display: grid;
-  grid-template-columns: 1fr 500px; /* timeline on left, details on right */
+  grid-template-columns: 1fr 700px; /* timeline on left, details on right */
   gap: 40px;
   align-items: start;
 }
@@ -266,10 +266,11 @@ body {
 }
 
 /* ===== EDUCATION SECTION ===== */
-.education-section {
-  max-width: 1100px;
-  margin: 80px auto;
-  padding: 0 20px;
+.education-section h1 {
+  text-align: center;
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 60px; /* similar spacing to other sections */
 }
 
 .education-card {
@@ -665,8 +666,8 @@ body {
 
 <!-- EDUCATION SECTION -->
 <section class="education-section" id="education-section">
-  <div class="education-card">
-    <h1>Education</h1>
+   <h1>Education</h1>
+   <div class="education-card">
     <div class="edu-item">
       <h2>MSc. Computer-Aided Conception and Production in Mechanical Engineering</h2>
       <div class="meta">RWTH Aachen University, Germany · 10/2021 – 05/2025</div>
@@ -1138,6 +1139,7 @@ eduItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
