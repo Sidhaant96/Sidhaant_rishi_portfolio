@@ -275,6 +275,7 @@ body {
 
 .education-card {
   background: var(--card);
+  max-width: var(--max-width); /* constrain width */
   border-radius: var(--radius);
   box-shadow: 0 6px 25px rgba(0,0,0,0.1);
   padding: 40px 30px;
@@ -327,7 +328,7 @@ body {
 /* Layout */
 .projects-layout {
   display: grid;
-  grid-template-columns: 200px 1fr; /* left wider */
+  grid-template-columns: 270px 1fr; /* left wider */
   gap: 40px;
   align-items: start;
 }
@@ -1144,6 +1145,7 @@ eduItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
