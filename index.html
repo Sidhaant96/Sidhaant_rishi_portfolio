@@ -1,594 +1,1497 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- ========================= HEAD ========================= -->
 <head>
 <meta charset="UTF-8">
-<meta name="format-detection" content="telephone=no">
-<meta name="description" content="Portfolio of Sidhaant Rishi – Introduction, Education, Experience, Skills, Projects">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sidhaant Rishi — Portfolio</title>
+<title>Portfolio</title>
 
-
+<!-- ========================= CSS ========================= -->
 <style>
-:root {
-  --bg: #F7F8FA;
-  --card: #FFFFFF;
-  --text: #1F2933;
-  --muted: #9CA3AF;
-  --accent: #1E3A8A;
-  --accent-2: #1E40AF;
-  --radius: 12px;
-  --max-width: 1150px;
-}
-
-/* LOCAL FONTS */
+/* ===== FONTS ===== */
 @font-face {
   font-family: 'Inter';
   src: url('Fonts/Inter_Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
 }
-
 @font-face {
   font-family: 'Inter';
   src: url('Fonts/Inter_Bold.ttf') format('truetype');
   font-weight: 700;
-  font-style: normal;
 }
 
-@font-face {
-  font-family: 'Inter';
-  src: url('Fonts/Inter_BlackItalic.ttf') format('truetype');
-  font-weight: 900;
-  font-style: italic;
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    135deg,
+    #33415C,
+    #5C677D
+  );
 }
 
-/* RESET */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* ===== BODY ===== */
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  color: white;
+  background: none;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
-/* TOP LEFT TEXT */
-#top-left-text {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  font-weight: 600;
-  font-size: 17.5px;
-  color: var(--accent);
-  z-index: 1000;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  letter-spacing: 0.02em;
-}
-
-/* TOP RIGHT NAVIGATION */
-
-#top-right-nav {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-#top-right-nav ul {
-  list-style: none;
+/* ===== LOADING ===== */
+#loadingContainer {
+  height: 100vh;
   display: flex;
-  gap: 12px;
-  margin: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.8s ease;
+}
+
+.progress-wrapper {
+  width: 50vw;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: white;
+  transition: width 0.2s ease;
+}
+
+/* ===== MAIN PAGE ===== */
+#mainwebpage {
+  display: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+  min-height: 100vh;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 4vw;
+  z-index: 1000;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  align-items: center;
+}
+
+.nav-center {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.6rem;
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+.hamburger span {
+  height: 0.12rem;
+  width: 100%;
+  background: white;
+  transition: transform 0.45s ease, opacity 0.35s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(0.45rem) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-0.45rem) rotate(-45deg);
+}
+
+
+/* ===== MOBILE MENU (GLASS) ===== */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(74,78,105,0.5);
+  backdrop-filter: blur(1.5rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* Dynamic spacing */
+  row-gap: clamp(1.2rem, 4vh, 2.5rem);
+
+  opacity: 0;
+  transform: translateY(-5vh);
+  pointer-events: none;
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+
+  z-index: 999;
+}
+
+/* Visible state */
+.mobile-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobile-menu .nav-center {
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  font-size: clamp(1.1rem, 4vw, 1.6rem);
+  margin-bottom: clamp(0.8rem, 3vh, 2rem);
+}
+
+.mobile-menu a {
+  font-size: clamp(1rem, 4.5vw, 1.3rem);
+  text-decoration: none;
+  color: white;
+}
+
+
+/* ===== HAMBURGER RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .nav-grid {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* ===== HERO SECTION ===== */
+#hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh 5vw;
+  box-sizing: border-box;
+}
+
+.hero-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.hero-photo img {
+  width: clamp(120px, 20vw, 200px);
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  object-position: top;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.hero-text {
+  max-width: 500px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-btn {
+  color: white;                 /* text color */
+  text-decoration: none;        /* remove default underline */
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  position: relative;           /* for underline animation */
+  cursor: pointer;
+  /* Add spacing from previous line */
+  display: inline-block;   /* needed for margin/padding */
+  margin-top: 2rem;        /* adjust this value as needed */
+}
+
+/* Animated underline */
+.hero-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;                 /* slight gap below text */
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.hero-btn:hover::after {
+  width: 100%;
+}
+
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 3vh;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+}
+
+/* ===== DOWN ARROW ===== */
+.scroll-down {
+  position: fixed;
+  bottom: clamp(3vh, 5%, 6vh); /* distance from bottom dynamically */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(2rem, 6vw, 3rem); /* dynamic size */
+  color: white;
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+  z-index: 500;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.scroll-down:hover {
+  opacity: 1;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(clamp(5px, 2vh, 10px)); }
+}
+
+
+/* ===== ABOUT ME SECTION ===== */
+#about {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
   padding: 0;
 }
 
-#top-right-nav li {
-  cursor: pointer;
+.about-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+/* Left Title - 40% */
+.about-title {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(5vh, 5vw, 6rem); /* spacing from top/bottom */
+  color: white; /* base color for gradient */
   font-weight: 700;
-  color: var(--accent);
-  font-size: 16px; /* increased font size */
-  transition: color 0.3s, transform 0.2s;
+  text-align: left;
+  font-size: clamp(3rem, 8vw, 6rem); /* large font */
+  position: relative;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 2s ease;
+
+  /* Glassified text effect */
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-#top-right-nav li:hover {
-  color: var(--accent);
-  transform: translateY(-2px);
+/* Split text positions */
+.about-title .about-top {
+  align-self: flex-start;
+  margin-top: clamp(1rem, 5vh, 3rem);
 }
 
-/* ===== PROFILE CARD ===== */
-.full-card {
-  max-width: var(--max-width);
-  margin: 80px auto;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 40px;
+.about-title .about-bottom {
+  align-self: flex-end;
+  font-size: clamp(2rem, 7vw, 5.5rem);
+  margin-bottom: clamp(1rem, 5vh, 3rem);
+}
+
+/* Right Panel - 60% (pure glass effect, sharp edges) */
+.about-content {
+  flex: 0 0 60%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 0;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: clamp(2rem, 3vw, 4rem);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  position: relative;
+
 }
 
-.photo-container img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  border: 4px solid #fff;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  #about { flex-direction: column; }
+  .about-container { flex-direction: column; height: 100%; }
+
+.about-title {
+    flex-direction: column;
+    justify-content: center; /* center vertically */
+    align-items: center;     /* center horizontally */
+    padding: 0;              /* remove top/bottom offset */
+    transform: translateY(-10px); /* no shift */
+    text-align: center;       /* center text */
+    font-size: clamp(2.5rem, 8vw, 5rem);
+  }
+
+  .about-title .about-top,
+  .about-title .about-bottom {
+    align-self: center; /* center each line */
+    margin: 0;          /* remove individual top/bottom margins */
+  }
+
+  .about-title .about-bottom {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+
+  .about-content { flex: 0 0 60%; height: 60vh; }
 }
 
-.info-section h1 {
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 10px;
+/* ========ABOUT ME ANIMATIONS========= */
+.about-title {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 2s ease;
 }
 
-.info-section h2 {
-  font-size: 20px;
-  color: var(--muted);
-  margin-bottom: 20px;
+.about-content {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease, transform 2s ease;
 }
 
-.info-section p {
-  font-size: 16px;
-  text-align: justify;
+/* Mobile animation (top → bottom, bottom → top) */
+@media (max-width: 900px) {
+  .about-title {
+    transform: translateY(-50px);
+    transition: opacity 2s ease, transform 2s ease; /* slower */
+  }
+  .about-content {
+    transform: translateY(50px);
+    transition: opacity 2s ease, transform 2s ease; /* slower */
+  }
+}
+
+/* Show state */
+.about-title.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+.about-content.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* Reverse state (scrolling up) */
+.about-title.reverse {
+  opacity: 1;
+  transform: translateX(50px); /* desktop reversed */
+}
+
+.about-content.reverse {
+  opacity: 1;
+  transform: translateX(-50px); /* desktop reversed */
+}
+
+/* Mobile reverse */
+@media (max-width: 900px) {
+  .about-title.reverse {
+    transform: translateY(50px);
+  }
+  .about-content.reverse {
+    transform: translateY(-50px);
+  }
 }
 
 /* ===== EXPERIENCE SECTION ===== */
-.experience-section {
-  max-width: var(--max-width);
-  margin: 80px auto;
-  padding: 0 20px;
-}
-
-.experience-section h1 {
-  text-align: center;
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 80px;
-}
-
-.timeline-layout {
-  display: grid;
-  grid-template-columns: 1fr 700px; /* timeline on left, details on right */
-  gap: 40px;
-  align-items: start;
-}
-
-.timeline {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 60px;
-  left: 40px;
-  width: 4px;
-  background: rgba(30, 64, 175, 0.3); /* duller blue line */
-}
-
-
-.timeline-item {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 20px;
-  cursor: pointer;
-  transition: color 0.3s, opacity 0.3s;
-}
-
-.timeline-item.muted .summary h3 {
-  color: var(--muted);
-}
-
-/* Dull inactive timeline items */
-.timeline-item.muted .dot {
-  background: #b0b8d0; /* lighter/duller color instead of using opacity */
-  color: #fff;
-  transform: scale(1);
-}
-
-.marker {
+#experience {
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 5vh 0;
 }
 
-.dot {
-  width: 50px;
-  height: 50px;
-  background: var(--accent);
-  color: #fff;
+.experience-container {
+  width: 90%;
+  max-width: 1200px;
+  height: 100%;
+  position: relative;
+  padding-top: 6vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.experience-title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.25));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.experience-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Timeline */
+.experience-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 900px;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.experience-timeline .year {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  text-align: center;
+  flex: 1;
+}
+
+.experience-timeline .dot {
+  width: 12px;
+  height: 12px;
+  background: white;
   border-radius: 50%;
+  opacity: 0.4;
+  margin: 0 5px;
+}
+
+.experience-timeline .line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+}
+
+.experience-timeline .active {
+  opacity: 1;
+}
+
+/* Carousel */
+.experience-carousel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.experience-deck {
+  position: relative;
+  width: 280px;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+/* Cards (Tiles) */
+.experience-card {
+  position: absolute;
+  width: 300px; 
+  height: 360px; 
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  opacity: 0.6;
+  transform: translateX(60px) scale(0.92);
+  transition: 
+    transform 0.6s cubic-bezier(0.4,0,0.2,1),
+    width 0.6s cubic-bezier(0.4,0,0.2,1),
+    height 0.6s cubic-bezier(0.4,0,0.2,1),
+    padding 0.6s cubic-bezier(0.4,0,0.2,1);
+  z-index: 1;
+}
+
+/* ===== EXPERIENCE CARD HEADINGS ===== */
+.experience-card h3 {
+  font-size: 1.15rem;       /* slightly larger for emphasis */
+  font-weight: 600;
+  margin-bottom: 0.35rem;   /* spacing between h3 and h4 */
+  line-height: 1.3;         /* slightly more line height for readability */
+}
+
+.experience-card h4 {
+  font-size: 1rem;           /* slightly larger than before */
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85); /* subtle differentiation */
+  margin-bottom: 0.45rem;   /* space before dates */
+  line-height: 1.35;        /* better spacing for multi-word org names */
+}
+
+/* ===== EXPERIENCE CARD DATES ===== */
+.experience-card .exp-org {
+  font-size: 0.9rem;         /* slightly larger */
+  font-weight: 500;          /* medium weight */
+  color: rgba(255, 255, 255, 0.9); /* brighter white for contrast */
+  margin-bottom: 0.9rem;     /* spacing before summary */
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+/* Optional: if you want dash styling more uniform */
+.experience-card .exp-org::before {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ===== BRIEF DESCRIPTION ===== */
+.experience-card .exp-summary {
+  font-size: 0.95rem;       /* readable size */
+  line-height: 1.5;         /* more line spacing for clarity */
+  margin-bottom: 0.6rem;    /* space before "More Details" button */
+  opacity: 0.85;            /* slightly muted */
+  color: #ffffff;
+}
+
+/* ===== EXPANDED DETAILS ===== */
+.experience-card.expanded .exp-details p {
+  font-size: 1rem;          /* larger for expanded view */
+  line-height: 1.6;         /* easy reading */
+  margin-bottom: 0.8rem;    /* spacing between bullet points */
+}
+
+
+/* Active / Previous / Next states */
+.experience-card.active {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  z-index: 5;
+}
+
+.experience-card.prev {
+  transform: translateX(-40px) scale(0.92); 
+  opacity: 0.5;
+  z-index: 3;
+}
+
+.experience-card.next {
+  transform: translateX(40px) scale(0.92);
+  opacity: 0.5;
+  z-index: 3;
+}
+
+
+/* Details */
+.exp-details {
+  display: none;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.experience-card.expanded .exp-details {
+  display: block;
+}
+
+.experience-card.expanded .exp-details-btn {
+  display: none;
+}
+
+.experience-card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(70vw, 900px);
+  height: 78vh;
+  max-height: 78vh;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+  transition: 
+    width 0.8s ease-in-out,
+    height 0.8s ease-in-out,
+    padding 0.8s ease-in-out,
+    transform 0.8s ease-in-out;
+}
+
+
+/* Hide brief description in expanded card */
+.experience-card.expanded .exp-summary {
+  display: none;
+}
+
+/* Buttons */
+.exp-details-btn {
+  position: absolute;        
+  bottom: 1rem;              
+  right: 1rem;               
+  
+  background: none;
+  border: none;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+
+  /* for underline animation */
+  position: absolute;
+}
+
+.exp-details-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.exp-details-btn:hover::after {
+  width: 100%;
+}
+
+.exp-close-btn {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.experience-card.expanded .exp-close-btn {
+  display: block;
+}
+
+/* Arrows */
+.experience-arrow {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.experience-arrow.left { left: -60px; }
+.experience-arrow.right { right: -60px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .experience-timeline {
+    flex-direction: row;      /* Keep horizontal */
+    width: 95%;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .experience-timeline .year {
+    font-size: 0.7rem;       /* smaller font */
+  }
+
+  .experience-timeline .dot {
+    width: 8px;               /* smaller dot */
+    height: 8px;
+  }
+
+  .experience-timeline .line {
+    height: 1.5px;            /* thinner line */
+  }
+}
+
+  .experience-deck {
+    width: 90%;
+    height: 380px;
+  }
+
+  .experience-arrow.left { left: 5px; }
+  .experience-arrow.right { right: 5px; }
+}
+
+/* ========= EDUCATION SECTION ========== */
+#education {
+  display: flex;
+  height: 400vh;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.education-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  
+  /* Shift everything down */
+  align-items: flex-start;     /* top-align items instead of center */
+  padding-top: 15vh;           /* push content lower */
+  box-sizing: border-box;
+}
+
+/* Left Title - 40% */
+.education-title {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical center inside its column */
+  align-items: flex-start;  
+  padding: 0 5vw;
+  padding-top: 10vw;
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 6rem);
+  position: relative;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.25)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 2s ease;
+}
+
+/* Right Content - 60% */
+.education-content {
+  flex: 0 0 60%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: clamp(2rem, 3vw, 4rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 3vh, 3rem);
+
+  color: #4A4E69;
+
+  max-width: 65ch;       
+  margin-left: auto;
+  margin-right: auto;
+
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease, transform 2s ease;
+}
+
+/* Education items */
+/* ===== EDUCATION SECTION FONTS ===== */
+.education-item h3 {
+  font-size: 1.3rem;        /* Main heading, biggest in the card */
+  font-weight: 600;          /* Slightly less bold than section title */
+  margin-bottom: 0.4rem;    /* Space to next line */
+  line-height: 1.4;          /* Comfortable spacing */
+  color: white;              /* White font for visibility */
+}
+
+.education-item h4 {
+  font-size: 1.05rem;       /* Slightly smaller than h3, like org/date in experience */
+  font-weight: 500;          /* Medium weight */
+  margin-bottom: 0.3rem;    /* Small spacing to span/date */
+  color: rgba(255,255,255,0.85); /* Slightly muted white */
+}
+
+.education-item span {
+  font-size: 0.9rem;        /* Smallest, for date */
+  opacity: 0.7;             /* Subtle */
+  display: block;            /* New line under h4 */
+  margin-bottom: 0.6rem;    /* Spacing before paragraph */
+  color: rgba(255,255,255,0.85);
+}
+
+.education-item p {
+  font-size: 0.95rem;       /* Body text, readable */
+  line-height: 1.5;         /* Comfortable spacing for reading */
+  color: rgba(255,255,255,0.9); /* White text for clarity */
+  margin: 0;                /* Reset margin */
+}
+
+.education-item {
+  margin-bottom: clamp(2rem, 4vh, 3rem);
+}
+
+
+/* ===== SHOW STATES ===== */
+.education-title.show,
+.education-content.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  #education {
+    flex-direction: column;
+  }
+
+  .education-container {
+    flex-direction: column;
+  }
+
+  .education-title {
+    margin: 0 auto;
+    justify-content: center;
+    padding:0;
+    text-align: center;
+    transform: translateY(-50px);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+  }
+
+  .education-content {
+    transform: translateY(50px);
+    height: 60vh;
+  }
+
+  .education-title.show,
+  .education-content.show {
+    transform: translateY(0);
+  }
+}
+
+
+/* ========= PROJECTS SECTION ========= */
+#projects {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.projects-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding-top: 20vh;
+}
+
+/* Title */
+.projects-title {
+  position: absolute;
+  top: 10vh;
+  left: 50%;
+  transform: translate(-50%, 40px);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 700;
+
+  background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.25));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.projects-title.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Carousel */
+.projects-carousel {
+  position: relative;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  z-index: 1;
-  transition: all 0.3s ease;
 }
 
-/* Active dot stays the same */
-.timeline-item.active .dot {
-  background: var(--accent-2);
-  transform: scale(1.1);
+/* Deck */
+.projects-deck {
+  position: relative;
+  width: 360px;
+  height: 460px;
+  perspective: 1200px;
 }
 
-.summary h3 {
-  font-size: 20px;
-  color: var(--accent);
-}
+/* Cards */
+.project-card {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 1.5rem;
+  border-radius: 14px;
 
-.summary p {
-  font-size: 16px;
-}
-
-.detail-panel {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  padding: 30px;
-  position: sticky;
-  top: 100px;
-}
-
-.detail-panel h2 {
-  font-size: 20px;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.detail-panel .meta {
-  font-size: 16px;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.detail-panel p {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-/* MOBILE */
-@media (max-width: 900px) {
-  .timeline-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .detail-panel {
-    position: static;
-    margin-top: 40px;
-  }
-}
-
-/* ===== EDUCATION SECTION ===== */
-.education-section h1 {
-  text-align: center;
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 60px; /* similar spacing to other sections */
-}
-
-.education-card {
-  background: var(--card);
-  max-width: var(--max-width); /* constrain width */
-  margin: 0 auto;    /* center the card */
-  border-radius: var(--radius);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  padding: 40px 30px;
-  text-align: center;
-}
-
-.education-card h1 {
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 30px;
-}
-
-.edu-item {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
+  gap: 0.5rem; /* consistent spacing between elements */
+
+  transform: translateX(60px) scale(0.92);
+  opacity: 0.6;
+  transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-.edu-item h2 {
-  font-size: 20px;
-  color: var(--accent);
-  margin-bottom: 8px;
+/* Active card */
+.project-card.active {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  z-index: 5;
 }
 
-.edu-item .meta {
-  font-size: 16px;
-  color: var(--muted);
-  margin-bottom: 10px;
+/* Neighbor cards */
+.project-card.prev {
+  transform: translateX(-60px) scale(0.92);
+  opacity: 0.5;
+  z-index: 3;
 }
 
-.edu-item p {
-  font-size: 16px;
-  color: var(--text);
+.project-card.next {
+  transform: translateX(60px) scale(0.92);
+  opacity: 0.5;
+  z-index: 3;
+}
+
+/* Figure */
+.project-figure {
+  display: flex;  
+  align-items: center;             /* make figure container a flexbox */
+  justify-content: center;    /* center image horizontally */
+  margin-left: 20px;             /* remove bottom push */
+}
+
+.project-figure img {
+  width: 80px;   /* adjust size */
+  max-height: 150px; /* optional to limit it */
+  height: auto;
+}
+
+/* Expanded card: center figure vertically and horizontally */
+.project-card.expanded .project-figure {
+  margin-left: 230px;             /* remove bottom push */
+  flex: 1;                   /* take available vertical space */
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+}
+
+/* Text */
+.project-card h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem; /* smaller heading */
+}
+
+.project-card .summary {
+  font-size: 0.85rem; /* reduced font size to match experience section */
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  color: #f0f0f0; /* optional for readability */
+}
+
+/* Details (hidden initially) */
+.project-card .details {
+  display: none;
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
   line-height: 1.5;
 }
 
-/* PROJECT SECTION */
-.projects-section {
-  max-width: var(--max-width);
-  margin: 80px auto;
-  padding: 0 20px;
-}
-
-.projects-section h1 {
-  text-align: center;
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 60px;
-}
-
-/* Layout */
-.projects-layout {
-  display: grid;
-  grid-template-columns: 270px 1fr; /* left wider */
-  gap: 40px;
-  align-items: start;
-}
-
-.project-detail {
-  max-width: 1000px; /* optional to constrain the right tile */
-}
-
-.project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.project-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--muted);
+/* Buttons */
+.details-btn {
+  margin-top: auto;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: white;
   cursor: pointer;
-  padding: 8px 12px;
-  border-left: 4px solid transparent;
-  transition: all 0.3s ease;
-}
-
-.project-name.active {
-  color: var(--accent);
-  border-left: 4px solid var(--accent);
-  background: rgba(30, 58, 138, 0.05);
-}
-
-.project-detail {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  padding: 30px;
-}
-
-.project-detail h2 {
-  font-size: 20px;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.project-detail p {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-/* SKILLS SECTION */
-.skills-section {
-  max-width: var(--max-width);
-  margin: 80px auto;
-  padding: 0 20px;
   position: relative;
 }
 
-.skills-section h1 {
-  text-align: center;
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 40px;
+/* Animated underline */
+.details-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;         
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
 }
 
-.skills-tile {
+.details-btn:hover::after {
+  width: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Expanded state */
+.project-card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  width: min(70vw, 900px);
+  height: 78vh;
+  max-height: 78vh;
+
+  transform: translate(-50%, -50%) scale(1.15);
+  z-index: 1000;
+
+  overflow-y: auto;
+
+  transition:
+    width 0.5s ease,
+    transform 0.4s ease,
+    top 0.4s ease,
+    left 0.4s ease;
+}
+
+.project-card.expanded .summary {
+  display: none;
+}
+
+.project-card.expanded .details {
+  display: block;
+}
+
+.project-card.expanded .close-btn {
+  display: block;
+}
+
+.project-card.expanded .details-btn { 
+  display: none;
+}
+
+/* Arrows */
+.projects-arrow {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.projects-arrow.left {
+  left: 5vw;
+}
+
+.projects-arrow.right {
+  right: 5vw;
+}
+
+.project-body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.project-figure {
+  height: 35%;
+}
+
+.project-text {
+  overflow-y: auto;
+}
+
+/* Collapsed card, specific image only */
+.project-card:not(.expanded) .angular-pendulum-pic {
+    margin: 0 0 0 12px;  /* left margin */
+    width: 100%;         /* adjust size */
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Expanded card, specific image only */
+.project-card.expanded .angular-pendulum-pic {
+    width: 100%;       /* bigger when expanded */
+    margin: 0 auto;   /* center horizontally */
+    height: 100%;
+}
+
+/* Collapsed card, specific image only */
+.project-card:not(.expanded) .tire-pressure-pic {
+    margin: 0 0 0 12px;  /* left margin */
+    width: 100%;         /* adjust size */
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Expanded card, specific image only */
+.project-card.expanded .tire-pressure-pic {
+    width: 100%;       /* bigger when expanded */
+    margin: 0 auto;   /* center horizontally */
+    height: 100%;
+}
+
+
+
+/* ========= SKILLS SECTION ========= */
+#skills {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.skills-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Left Title */
+.skills-title {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.25)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Right Content */
+.skills-content {
+  flex: 0 0 60%;
+  padding: clamp(2rem, 4vw, 5rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 3vh, 3rem);
+
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease, transform 1.5s ease;
+}
+
+/* Skill Group */
+.skill-group h3 {
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  color: white;
+}
+
+/* Tags */
+.skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 0.6rem;
+}
+
+.skill-tags span {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
+
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.skill-tags span:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.28);
+}
+
+/* Show animation */
+.skills-title.show,
+.skills-content.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  #skills {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .skills-container {
+    flex-direction: column;
+  }
+
+  .skills-title {
+    margin-top: 4.5rem;
+    margin-bottom: 1.5rem;
+    transform: translateY(-10px);
+}
+
+  .skills-content {
+    justify-content: flex-start;
+    padding: 2.5rem;
+    gap: 1.2rem;
+    transform: translateY(10px);
+  }
+
+  .skills-title.show,
+  .skills-content.show {
+    transform: translateY(0);
+  }
+}
+
+
+/* ========= CONTACT SECTION ========= */
+#contact {
+  height: 100vh;
+  display: flex;
   justify-content: center;
+  align-items: stretch;
 }
 
-.skill-item {
-  background: var(--card);
-  padding: 10px 16px;
-  border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--accent-2);
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
+.contact-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
-.skill-item:hover {
-  background: var(--accent-2);
-  color: #fff;
+/* Left Title */
+.contact-title {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.25)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 1;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 1.5s ease;
 }
 
-.skill-tooltip {
-  position: fixed;
-  background: var(--card);
-  padding: 10px 16px;
-  border-radius: var(--radius);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  font-size: 16px;
-  color: var(--text);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: 1000;
-  white-space: nowrap;
-}
+/* Right Content */
+.contact-content {
+  flex: 0 0 60%;
+  padding: clamp(2rem, 4vw, 5rem);
 
-.grade-text-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* right aligned */
-  margin-left: 6px;
-  white-space: nowrap; 
-  min-width: 60px; 
+  justify-content: center;
+  gap: 2rem;
+
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(16px);
+  border-left: 1px solid rgba(255,255,255,0.25);
+
+  opacity: 1;
+  transform: translateX(50px);
+  transition: opacity 1s ease, transform 1.5s ease;
 }
 
-.grade-value {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.1;
+.contact-intro {
+  font-size: 1.1rem;
+  color: white;
+  max-width: 55ch;
 }
 
-.grade-label {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.1;
-}
-
-
-/* MOBILE ADJUSTMENTS */
-@media (max-width: 900px) {
-  .timeline-layout, .projects-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .detail-panel {
-    position: static;
-    margin-top: 40px;
-  }
-
-  .edu-item {
-    text-align: center;
-  }
-
-  .project-list {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .project-name {
-    flex: 0 0 auto;
-    border-left: none;
-    border-bottom: 2px solid transparent;
-  }
-
-  .project-name.active {
-    border-bottom: 2px solid var(--accent);
-    background: none;
-  }
-}
-
-/* CONTACT SECTION */
-
-.contact-section {
-  max-width: var(--max-width);
-  margin: 80px auto;
-  padding: 0 20px;
-  text-align: center;
-}
-
-.contact-section h1 {
-  font-size: 32px;
-  color: var(--accent);
-  margin-bottom: 40px;
-}
-
-.contact-card {
-  background: var(--card);
-  padding: 30px 20px;
-  border-radius: var(--radius);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  display: inline-block;
-  min-width: 280px;
-}
-
-.contact-card p {
-  font-size: 16px;
-  color: var(--text);
-  margin: 10px 0;
-}
-
-.contact-card a {
-  color: var(--accent-2);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.contact-card a:hover {
-  color: var(--accent);
-}
-
-/* CONTACT SECTION - Mobile adjustments */
-@media (max-width: 600px) {
-  .contact-card {
-    width: 100%;
-    padding: 25px 15px;
-  }
-
-  .contact-card p {
-    font-size: 16px;
-  }
-
-}
-
-/* CIRCLE GRADE BAR */
-.grade-bar {
+/* Info block */
+.contact-info {
   display: flex;
-  gap: 4px;
-  margin: 6px 0;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.grade-circle {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #e5e7eb; /* empty circle color */
-  transition: background 0.3s;
-  cursor: pointer;
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
-/* Filled circle */
-.grade-circle.filled {
-  background: var(--accent-2);
+.contact-item .label {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
 }
 
-/* Tooltip for grades */
-.grade-tooltip {
-  position: fixed;
-  background: var(--card);
-  padding: 8px 12px;
-  border-radius: var(--radius);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  font-size: 16px;
-  color: var(--text);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: 1000;
-  white-space: nowrap;
+.contact-item .value {
+  font-size: 1.1rem;
+  color: white;
 }
 
-.project-name .grade-bar {
-  margin-top: 4px;
-  gap: 2px;
-  justify-content: flex-start;
+.contact-item .link {
+  text-decoration: none;
+  position: relative;
 }
 
-.project-name .grade-circle {
-  width: 10px;
-  height: 10px;
+.contact-item .link::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: #4A4E69;
+  transition: width 0.3s ease;
+}
+
+.contact-item .link:hover::after {
+  width: 100%;
+}
+
+/* Show animation */
+.contact-title.show,
+.contact-content.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  #contact {
+    flex-direction: column;
+  }
+
+  .contact-title {
+    padding: 2rem 0;
+    transform: translateY(-50px);
+  }
+
+  .contact-content {
+    transform: translateY(50px);
+  }
+
+  .contact-title.show,
+  .contact-content.show {
+    transform: translateY(0);
+  }
 }
 
 
@@ -597,576 +1500,857 @@ body {
 
 <body>
 
-<div id="top-left-text">Portfolio</div>
+<!-- ========================= HTML ========================= -->
+<div class="global-bg"></div>
 
-<!-- TOP RIGHT NAVIGATION -->
-<div id="top-right-nav">
-  <ul>
-    <li data-target="experience-section">Experience</li>
-    <li data-target="education-section">Education</li>
-    <li data-target="projects-section">Projects</li>
-    <li data-target="skills-section">Skills</li>
-    <li data-target="contact-section">Contact</li>
-  </ul>
+<!-- ===== LOADING SCREEN ===== -->
+<div id="loadingContainer">
+  <div>Loading</div>
+  <div class="progress-wrapper">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div id="progressText">0%</div>
 </div>
 
-<!-- PROFILE CARD -->
-<div class="full-card" id="full-card">
-  <div class="photo-container">
-      <img src="Sidhaant Rishi.png" alt="Sidhaant Rishi">
-  </div>
-  <div class="info-section">
-    <h1>Sidhaant Rishi</h1>
-    <h2>MSc. Computer-Aided Conception and Production in Mechanical Engineering</h2>
-    <p>
-      Passionate mechanical engineer with a strong focus on NVH, structural dynamics,
-      and machine learning applications. Motivated to optimize mechanical systems
-      through high-fidelity simulations and data-driven solutions.
-    </p>
-  </div>
-</div>
+<!-- ===== MAIN WEBPAGE ===== -->
+<div id="mainwebpage">
 
-<!-- EXPERIENCE SECTION -->
-<section class="experience-section" id="experience-section">
-  <h1>Experience</h1>
-  <div class="timeline-layout">
-    <div class="timeline">
-      <div class="timeline-item active" data-id="0">
-        <div class="marker"><div class="dot">1</div></div>
-        <div class="summary">
-          <h3>Student Research Assistant (HiWi)</h3>
-          <p>RWTH Aachen University<br>(03/2023 – 07/2025)</p>
-        </div>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-grid">
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#experience" class="nav-link">Experience</a>
+
+      <div class="nav-center">PORTFOLIO</div>
+
+      <a href="#about" class="nav-link">About Me</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="nav-center">SIDHAANT RISHI</div>
+    <a href="#about" class="nav-link">About Me</a>
+    <a href="#experience" class="nav-link">Experience</a>
+    <a href="#education" class="nav-link">Education</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+
+<!-- ============ HERO SECTION =============== -->
+
+  <section id="hero">
+    <div class="hero-container">
+      <!-- Photo -->
+      <div class="hero-photo">
+        <img src="Sidhaant Rishi.png" alt="Sidhaant Rishi">
       </div>
-      <div class="timeline-item" data-id="1">
-        <div class="marker"><div class="dot">2</div></div>
-        <div class="summary">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <h1>Hi! I am Sidhaant Rishi</h1>
+        <p>NVH and Structural Dynamics Engineer</p>
+	<a href="Sidhaant_Rishi_Resume.pdf" download class="hero-btn">
+	  Download Resume
+	</a>
+      </div>
+    </div>
+  </section>
+<!-- Scroll down arrow -->
+  <div class="scroll-down" id="scrollDown">
+    &#x2193;
+  </div>
+
+
+</div>
+
+<!-- ================== ABOUT ME SECTION ================== -->
+<section id="about">
+  <div class="about-container">
+    <!-- Left Part: ABOUT ME Text -->
+    <div class="about-title">
+      <div class="about-top">ABOUT</div>
+      <div class="about-bottom">ME</div>
+    </div>
+
+
+    <!-- Right Part: Content Panel with Glass Effect -->
+    <div class="about-content">
+      <p>
+        Passionate mechanical engineer with a strong focus on NVH, structural dynamics, and machine learning applications. Motivated to optimize mechanical systems through high-fidelity simulations and data-driven solutions
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================== EXPERIENCE SECTION ================== -->
+
+<section id="experience">
+  <div class="experience-container">
+
+    <!-- Title -->
+    <h2 class="experience-title">EXPERIENCE</h2>
+
+    <!-- Timeline -->
+    <div class="experience-timeline">
+      <span class="year active">2025</span>
+      <span class="dot active"></span>
+      <span class="line"></span>
+
+      <span class="year">2020</span>
+      <span class="dot"></span>
+      <span class="line"></span>
+
+      <span class="year">2017</span>
+      <span class="dot"></span>
+      <span class="line"></span>
+
+      <span class="year">2016</span>
+      <span class="dot"></span>
+    </div>
+
+    <!-- Carousel -->
+    <div class="experience-carousel">
+
+      <button class="experience-arrow left">&#10094;</button>
+
+      <div class="experience-deck">
+
+        <div class="experience-card active">
+          <h3>Student Research Assistant</h3>
+          <h4>RWTH Aachen University, Germany</h4>
+          <p class="exp-org">03/2023– 07/2025</p>
+          <p class="exp-summary">Performed advanced structural and NVH analyses on electric drive components, optimized CAD models, and developed machine learning-based health monitoring for coolant pumps using high-fidelity test data.</p>
+
+          <div class="exp-details">
+            <p>• Conducted meshing and modal analysis of electric drive components in Abaqus to optimize structural performance and minimize vibration risks.</p>
+
+<p>• Converted an elastomeric coupling model from MATLAB to Python, improving runtime by 82%, and simulated output torque using frequency and amplitude sweeps. </p>
+
+<p>• Updated clutch adapter CAD models for multi-configuration compatibility, enhancing test-bench flexibility to accommodate different clutch sizes.</p>
+
+<p>• Developed ML-based health monitoring models for coolant pumps, achieving 75%+ anomaly detection and 85%+ RUL (Remaining Useful Life) prediction accuracy.</p>
+
+<p>• Collected acceleration vs. time data on the test bench to train ML models, including run-up from idle to 7000 rpm and run-down simulations, capturing performance across varying coolant temperatures and pressures.</p>
+          </div>
+
+          <button class="exp-details-btn">More Details</button>
+          <button class="exp-close-btn">✕</button>
+        </div>
+
+        <div class="experience-card">
           <h3>Application Engineer</h3>
-          <p>Larsen & Toubro Ltd<br>(07/2018 – 11/2020)</p>
+          <h4> Larsen and Toubro Limited</h4>
+          <p class="exp-org">07/2018- 11/2021</p>
+          <p class="exp-summary">Performed onsite testing and performance optimization of heavy machinery, improved fuel efficiency by 15%, created insightful Power BI dashboards, and collaborated with cross-functional teams to implement and validate operational enhancements.</p>
+          
+          <div class="exp-details">
+<p>• Conducted onsite performance assessments and testing of heavy machinery, including Dozers, Dump Trucks, Excavators, and Wheel Loaders, analyzing operational data to optimize efficiency and ensure peak performance for clients.</p>
+
+<p>• Diagnosed and resolved fuel efficiency issues in 60-ton dump trucks, achieving a 15% reduction in fuel consumption through calibration adjustments and operational recommendations.</p>
+
+<p>• Developed performance reports and dashboards using Power BI, providing clients with actionable insights on operational efficiency, maintenance needs, and cost-saving opportunities.</p>
+
+<p>• Collaborated with cross-functional teams to implement field-based efficiency improvements and validate their impact on equipment performance.</p>
+          </div>
+          <button class="exp-details-btn">More Details</button>
+          <button class="exp-close-btn">✕</button>
+       </div>
+
+        <div class="experience-card">
+          <h3>Manufacturing Engineering Intern</h3>
+	  <h4> Bajaj Auto Limited </h4>
+          <p class="exp-org">06/2017- 07/2017</p>
+          <p class="exp-summary">Optimized automotive paint shop processes through value stream mapping and Kaizen initiatives, streamlining operations and reducing lead time by 4%</p>
+          <div class="exp-details">
+<p>• Conducted value stream mapping in the automotive paint shop, identifying process bottlenecks and proposing changes that improved throughput and reduced lead time by 4%.</p>
+
+<p>• Led a Kaizen initiative by evaluating different paint and lacquer application methods, optimizing the process to reduce application and drying times.</p>
+
+<p>• Performed detailed process analysis and timing studies to pinpoint bottlenecks and implement efficiency improvements.</p>
+          </div>
+          <button class="exp-details-btn">More Details</button>
+          <button class="exp-close-btn">✕</button>
+       </div>
+
         </div>
-      </div>
-      <div class="timeline-item" data-id="2">
-        <div class="marker"><div class="dot">3</div></div>
-        <div class="summary">
-          <h3>Manufacturing Engg. Intern</h3>
-          <p>Bajaj Auto Ltd<br>(06/2017 – 07/2017)</p>
-        </div>
-      </div>
-      <div class="timeline-item" data-id="3">
-        <div class="marker"><div class="dot">4</div></div>
-        <div class="summary">
+
+        <div class="experience-card">
           <h3>Vehicle Inspection Intern</h3>
-          <p>Maruti Suzuki India Ltd<br>(06/2016 – 07/2016)</p>
+	  <h4> Maruti Suzuki Private Limited</h4>
+          <p class="exp-org">06/2016- 07/2016</p>
+          <p class="exp-summary">Investigated vehicle water ingress, conducted hands-on inspections of components, and recommended process improvements to enhance sealing, durability, and overall performance.</p>
+          
+          <div class="exp-details">
+<p>•  Investigated vehicle water ingress issues during shower testing, observed defect patterns, and suggested potential improvements for better sealing performance.</p>
+
+<p>• Performed hands-on inspections of vehicle components and assemblies to identify issues affecting durability and performance.</p>
+
+<p>• Performed detailed process analysis and timing studies to pinpoint bottlenecks and implement efficiency improvements.</p>
+          </div>
+          <button class="exp-details-btn">More Details</button>
+          <button class="exp-close-btn">✕</button>
         </div>
+
+      </div>
+
+      <button class="experience-arrow right">&#10095;</button>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ================== EDUCATION SECTION ================== -->
+<section id="education">
+  <div class="education-container">
+
+    <!-- Left Title -->
+   <div class="education-title">
+       EDUCATION
+   </div>
+
+
+    <!-- Right Content -->
+    <div class="education-content">
+      <div class="education-item">
+        <h3>Master in Computer Aided Conception & Production in Mechanical Engineering</h3>
+        <h4> RWTH Aachen University, Germany
+        <span>10/2021 – 05/2025</span>
+        <p>
+         Relevant Coursework: Advanced Finite Element Methods, Continuum Mechanics, Multibody Dynamics, Artificial Neural Network
+        </p>
+      </div>
+
+      <div class="education-item">
+        <h3>Bachelor in Automobile Engineering</h3>
+	<h4>SRM Institute of Science and Technology, India
+        <span>2014 – 2018</span>
+        <p>
+          Relevant Coursework: Mechanics of Materials, Thermodynamics, Automotive Transmissions
+        </p>
       </div>
     </div>
-    <div class="detail-panel" id="detailPanel">
-      <h2>Student Research Assistant (HiWi)</h2>
-      <div class="meta">RWTH Aachen University · 03/2023 – 07/2025</div>
-      <p>• Conducted meshing and modal analysis of electric drive components in Abaqus to optimize structural performance and minimize vibration risks.</p>
-      <p>• Converted an elastomeric coupling model from MATLAB to Python, improving runtime by 82%, and simulated output torque using frequency and amplitude sweeps.</p>
-      <p>• Updated clutch adapter CAD models for multi-configuration compatibility, enhancing test-bench flexibility to accommodate different clutch sizes.</p>
-      <p>• Developed ML-based health monitoring models for coolant pumps, achieving 75%+ anomaly detection and 85%+ RUL (Remaining Useful Life) prediction accuracy.</p>
-  <p>• Collected acceleration vs. time data on the test bench to train ML models, including run-up from idle to 7000 rpm and run-down simulations, capturing performance across varying coolant temperatures and pressures.</p>
+
+  </div>
+</section>
+
+
+<!-- ================== PROJECTS SECTION ================== -->
+<section id="projects">
+  <div class="projects-container">
+
+    <!-- Title -->
+    <h2 class="projects-title">PROJECTS</h2>
+
+    <!-- Carousel -->
+    <div class="projects-carousel">
+
+      <!-- Left Arrow -->
+      <button class="projects-arrow left">&#10094;</button>
+
+      <!-- Deck -->
+      <div class="projects-deck">
+
+        <div class="project-card active">
+          <div class="project-figure">
+            <img src="https://github.com/Sidhaant96/Sidhaant_rishi_portfolio/Fonts/Master_thesis_pic.png" alt="Master_thesis_pic"  style="width:100%; height:auto; border-radius:10px;">
+          </div>
+          <h3>Identification of Structural Dynamic Design Elements through the Topology Optimization of Housing Components in Electrified Powertrains</h3>
+          <p class="summary">Improved NVH performance of electrical drivetrain by 16.4% in first three eigenfrequencies using multi-variant topology optimization, automated CAE workflows, and voxel-based spatial classification with geometry feature transfer</p>
+
+          <div class="details">
+            <p>• Increased the first three eigenfrequencies of drivetrain housings by 16.4%, enhancing structural dynamic stiffness relevant to EV NVH.</p>
+
+            <p>• Mode-specific gains on a representative left-side drive mount: 1st bending mode 2007 → 2579 Hz, 2nd mode 2803 → 3189 Hz, with mass maintained at 4 kg.</p>
+
+            <p>• Performed multi-variant topology optimization on 8 components, generating 18 variants per component.</p>
+
+            <p>• Automated CAE workflows (MATLAB, Python, Abaqus) eliminated manual setup for 100+ models, enabling large-scale simulation and design-space exploration of 108 models in one week.</p>
+
+            <p>• Applied voxel-based spatial classification to extract recurring geometric features (ribs, curvature, edges) and transfer them to baseline geometries, achieving performance gains without rerunning optimizations.</p>
+
+            <p>• Established a generalizable methodology extensible to downstream analyses like transfer path analysis, reducing reliance on empirical rules and prototyping  </p>
+          </div>
+
+          <button class="details-btn">More Details</button>
+          <button class="close-btn">✕</button>
+        </div>
+
+        <div class="project-card">
+          <div class="project-figure">
+            <img src="https://github.com/Sidhaant96/Sidhaant_rishi_portfolio/Fonts/Mini_thesis_pic.jpg" alt="Mini_thesis_pic"  style="width:100%; height:100%; border-radius:10px;">
+          </div>
+
+          <h3>Identifying sensitive modelling parameters on the NVH behaviour of an electrical machine</h3>
+          <p class="summary">Performed comprehensive NVH sensitivity analysis of an electrical machine using Morris and eFAST methods, Python-driven parameterization, and multi-processing over 120 simulations to identify key parameters across RPM ranges.</p>
+
+          <div class="details">
+            <p>
+• Performed sensitivity analysis on an electrical machine to study NVH behaviour across multiple RPM ranges  </p>
+
+  <p>• Used the Morris Method to efficiently screen and rank input parameters, reducing computational cost for subsequent analysis  </p>
+
+  <p>• Ran eMBS simulations in FIRST software with parameter variations applied via Python scripts and Excel configuration files  </p>
+
+  <p>• Applied the μ* metric from Morris Method to handle non-monotonic, time-dependent outputs  </p>
+
+  <p>• Performed eFAST to quantify first-order and total effects, capturing both direct contributions and parameter interactions  </p>
+
+  <p>• Managed over 120 model evaluations using multi-processing, covering the parameter space while minimizing computation time  </p>
+
+  <p>• Identified critical input parameters that dominate NVH response trends, guiding focused engineering efforts to improve system performance without exhaustive experimentation  </p>
+
+  <p>• Normalized sensitivity trends over RPM ranges provided insights for informed design optimization of electrical machine components
+            </p>
+          </div>
+
+          <button class="details-btn">More Details</button>
+          <button class="close-btn">✕</button>
+        </div>
+
+        <div class="project-card">
+          <div class="project-figure">           
+          <img src="https://github.com/Sidhaant96/Sidhaant_rishi_portfolio/Fonts/angular_position_pic.jpg" alt="angular_position_pic" class="angular-pendulum-pic">
+
+          </div>
+          <h3>Angular Position Prediction of a Damped Pendulum using Physics-Informed Artificial Neural Network</h3>
+          <p class="summary">Developed a physics-informed neural network in Julia for damped pendulum angular position prediction, achieving R² = 0.99 through hyperparameter tuning, periodic activations, and validation against analytical solutions.</p>
+
+          <div class="details">
+            <p>
+• Collaborated in a team to develop a physics-informed neural network for predicting angular positions of a damped pendulum, integrating training data with the governing differential equation for accurate modeling</p>
+
+<p>• Contributed to hyperparameter optimization using a grid search approach, tuning activation functions, number of hidden layers, neurons per layer, learning rate, residual factor, and training epochs to maximize model accuracy</p>
+
+<p>• Executed model training and validation using Flux.jl in Julia, ensuring efficient batch processing, convergence, and reproducibility of results</p>
+
+<p>• Performed comparative analysis against analytical and numerical solutions, achieving an R² score of 0.99 using the optimized network architecture</p>
+
+<p>• Documented methodology, workflow, and findings in the project report, highlighting key insights and lessons learned from the neural network implementation</p>
+
+<p>• Demonstrated the importance of periodic activation functions and balanced network architecture for efficient, scalable, and accurate physics-informed modeling.
+            </p>
+          </div>
+
+          <button class="details-btn">More Details</button>
+          <button class="close-btn">✕</button>
+        </div>
+
+        <div class="project-card">
+          <div class="project-figure">          
+          <img src="https://github.com/Sidhaant96/Sidhaant_rishi_portfolio/Fonts/tire_pressure_pic.jpg" alt="tire_pressure_pic" class="tire-pressure-pic">
+          </div>
+
+          <h3>Intelligent Monitoring of the Bicycle Tire Pressure</h3>
+          <p class="summary">Designed and trained a feed-forward neural network to predict bicycle tire pressure from acceleration data using histogram binning, resilient backpropagation, and k-fold cross-validation to ensure robust generalization</p>
+
+          <div class="details">
+            <p>
+           • Collaborated in a team to design and implement a fully connected feed-forward neural network to predict bicycle tire pressures using acceleration data collected from normal and fat bikes</p>
+
+<p>• Engaged in data preprocessing workflow, including histogram binning of acceleration data to standardize inputs across six different measurement groups for accurate model training</p>
+
+<p>• Contributed to network generation, including defining the architecture with 3 hidden layers (7, 10, 7 neurons) and an input/output layer aligned with histogram-based feature vectors</p>
+
+<p>• Performed training of the neural network using Resilient Backpropagation, implementing k-fold cross-validation to evaluate model performance and generalization capability</p>
+
+<p>• Documented methodology, architecture, training process, and project findings, ensuring clear reporting of workflow, hyperparameter selection, and evaluation results</p>
+          </div>
+
+          <button class="details-btn">More Details</button>
+          <button class="close-btn">✕</button>
+        </div>
+
+      </div>
+
+      <!-- Right Arrow -->
+      <button class="projects-arrow right">&#10095;</button>
+
     </div>
   </div>
 </section>
 
-<!-- EDUCATION SECTION -->
-<section class="education-section" id="education-section">
-   <h1>Education</h1>
-   <div class="education-card">
-    <div class="edu-item">
-      <h2>MSc. Computer-Aided Conception and Production in Mechanical Engineering</h2>
-      <div class="meta">RWTH Aachen University, Germany · 10/2021 – 05/2025</div>
-      <p>Relevant Coursework: Advanced Finite Element Methods, Continuum Mechanics, Multibody Dynamics, Artificial Neural Network</p>
-      <p> Grade: 1.8/5.0 gpa </p>
+
+<!-- ================== SKILLS SECTION ================== -->
+<section id="skills">
+  <div class="skills-container">
+
+    <!-- Left Title -->
+    <div class="skills-title">
+      SKILLS
     </div>
-    <div class="edu-item">
-      <h2>BSc. Automobile Engineering</h2>
-      <div class="meta">SRM Institute of Science and Technology, India · 07/2014 – 07/2018</div>
-      <p>Relevant Coursework: Mechanics of Materials, Thermodynamics, Automotive Transmissions</p>
-      <p> Grade: 8.98/10.0 gpa </p>
+
+    <!-- Right Content -->
+    <div class="skills-content">
+
+      <div class="skill-group">
+        <h3>Simulation & Analysis</h3>
+        <div class="skill-tags">
+          <span>FEM Simulation</span>
+          <span>Modal Analysis</span>
+          <span>Multibody Simulation</span>
+          <span>Topology Optimization</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Tools & Software</h3>
+        <div class="skill-tags">
+          <span>Abaqus</span>
+          <span>ANSYS</span>
+          <span>MATLAB</span>
+          <span>CAD</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Data & Intelligence</h3>
+        <div class="skill-tags">
+          <span>Python</span>
+          <span>Machine Learning</span>
+          <span>Signal Processing</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Professional</h3>
+        <div class="skill-tags">
+          <span>Team Collaboration</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- PROJECTS SECTION -->
-<section class="projects-section" id="projects-section">
-  <h1>Projects</h1>
-  <div class="projects-layout">
-    <div class="project-list">
-      <div class="project-name active" data-id="0">Master's Thesis</div>
-      <div class="project-name" data-id="1">Research Project</div>
-      <div class="project-name" data-id="2">Angular Positioning</div>
-      <div class="project-name" data-id="3">Tire Pressure Monitoring</div>
+
+<!-- ================== CONTACT SECTION ================== -->
+<section id="contact">
+  <div class="contact-container">
+
+    <!-- Left Title -->
+    <div class="contact-title">
+      CONTACT
     </div>
-    <div class="project-detail" id="projectDetail">
-      <h2>Identification of Structural Dynamic Design Elements through the Topology Optimization of Housing Components in Electrified Powertrains</h2>
-      <p>• Achieved an overall 16.4% increase in the first three eigenfrequencies of drivetrain housings, improving structural dynamic stiffness relevant to EV NVH</p>  
 
- <p>• Mode-wise improvements on a representative left-side drive mount: 1st bending mode 2007 to 2579 Hz, 2nd mode 2803 to 3189 Hz, mass maintained (4 kg)</p>
+    <!-- Right Content -->
+    <div class="contact-content">
 
-  <p>• Conducted multi-variant topology optimization on 8 components, generating 18 design variants per component</p>
+      <p class="contact-intro">
+        Interested in collaboration, research, or potential opportunities?
+        You can reach me directly using the details below.
+      </p>
 
-  <p>• Automated CAE workflow integrating MATLAB, Python, and Abaqus eliminated manual setup of 100+ models, enabling rapid large-scale simulation and design-space exploration.
-The workflow supported optimization and analysis of (108 models) within one week, demonstrating workflow efficiency</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="label">Email</span>
+          <span class="value">rishi.sidhaant1@gmail.com</span>
+        </div>
 
-  <p>• Applied voxel-based spatial classification to extract recurring geometric features (ribs, curvature, edges) and transfer them to baseline geometries, achieving performance gains without rerunning optimization</p>
+        <div class="contact-item">
+          <span class="label">LinkedIn</span>
+          <a
+            href="https://www.linkedin.com/in/sidhaant-rishi"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="value link"
+          >
+            www.linkedin.com/in/sidhaant-rishi
+          </a>
+        </div>
+      </div>
 
-  <p>• Established a generalizable methodology extensible to downstream analyses like transfer path analysis, reducing reliance on empirical rules and prototyping</p>
     </div>
   </div>
 </section>
 
-<!-- SKILLS SECTION -->
-<section class="skills-section" id="skills-section">
-  <h1>Skills</h1>
-  <div class="skills-tile">
-    <div class="skill-item" data-projects="Master's Thesis, Research Project, Course work, HiWi">FEM Simulation</div>
-    <div class="skill-item" data-projects="Master's Thesis, Research Project, Course work, HiWi">Modal Analysis</div>
-    <div class="skill-item" data-projects="Master's Thesis, Research Project, HiWi">Structural Dynamics</div>
-    <div class="skill-item" data-projects="Research Project, Course Work">Multibody Dynamics</div>
-    <div class="skill-item" data-projects="Master's Thesis">Topology Optimization</div>
-    <div class="skill-item" data-projects="HiWi, Course work, Angular Position of Damped Pendulum Project, Tire Pressure Monitoring Project">Machine Learning</div>
-    <div class="skill-item" data-projects=" Research Project, HiWi,  Angular Position of Damped Pendulum Project, Tire Pressure Monitoring Project">Signal Processing</div>
-<div class="skill-item" data-projects="Master's Thesis, HiWi">Computer-Aided Design</div>
-<div class="skill-item" data-projects="Master's Thesis, HiWi">Abaqus</div>
-<div class="skill-item" data-projects="Course work, Thermal Stress Analysis of Chipset">ANSYS</div>
-<div class="skill-item" data-projects="Master's Thesis, Tire Pressure Monitoring Project">MATLAB</div> 
-<div class="skill-item" data-projects="Master's Thesis, Angular Position of Damped Pendulum Project">Python</div>
-   
-  </div>
-  <div class="skill-tooltip" id="skillTooltip"></div>
-</section>
 
-<!-- CONTACT SECTION -->
-<section class="contact-section" id="contact-section">
-  <h1>Contact</h1>
-  <div class="contact-card">
-    <p><strong>Email:</strong> <a href="mailto: rishi.sidhaant1@gmail.com">rishi.sidhaant1@gmail.com</a></p>
-    <p><strong>Phone:</strong> 
-      <a href="tel:+49 176 588 32186">+49 176 588 32186</a> | 
-      <a href="tel:+91 886 00 37979">+91 886 003 7979</a>
-    </p>
-    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/sidhaant-rishi" target="_blank">linkedin.com/in/sidhaant-rishi</a></p>
-  </div>
-</section>
 
-<!-- ===== SCRIPTS ===== -->
+
+<!-- ========================= JAVASCRIPT ========================= -->
 <script>
-// ===== TIMELINE CLICK =====
-const timelineItems = document.querySelectorAll('.timeline-item');
-const detailPanel = document.getElementById('detailPanel');
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const loading = document.getElementById("loadingContainer");
+const main = document.getElementById("mainwebpage");
 
-const timelineData = [
-  {
-    title: "Student Research Assistant",
-    meta: "RWTH Aachen University · 03/2023 – 07/2025",
-    details: [ 
-"Conducted meshing and modal analysis of electric drive components in Abaqus to optimize structural performance and minimize vibration risks.", 
+let progress = 0;
+const loader = setInterval(() => {
+  progress++;
+  progressBar.style.width = progress + "%";
+  progressText.textContent = progress + "%";
 
-"Converted an elastomeric coupling model from MATLAB to Python, improving runtime by 82%, and simulated output torque using frequency and amplitude sweeps.", 
+  if (progress >= 100) {
+    clearInterval(loader);
+    loading.style.opacity = "0";
 
-"Updated clutch adapter CAD models for multi-configuration compatibility, enhancing test-bench flexibility to accommodate different clutch sizes.",
-
-"Developed ML-based health monitoring models for coolant pumps, achieving 75%+ anomaly detection and 85%+ RUL (Remaining Useful Life) prediction accuracy.",
-
-"Collected acceleration vs. time data on the test bench to train ML models, including run-up from idle to 7000 rpm and run-down simulations, capturing performance across varying coolant temperatures and pressures."
-   
-	 ]
-  },
-  {
-    title: "Application Engineer",
-    meta: "Larsen & Toubro Ltd · 07/2018 – 11/2020",
-    details: [
-"Conducted onsite performance assessments and testing of heavy machinery, including Dozers, Dump Trucks, Excavators, and Wheel Loaders, analyzing operational data to optimize efficiency and ensure peak performance for clients.",
-
-"Diagnosed and resolved fuel efficiency issues in 60-ton dump trucks, achieving a 15% reduction in fuel consumption through calibration adjustments and operational recommendations.", 
-
-"Developed performance reports and dashboards using Power BI, providing clients with actionable insights on operational efficiency, maintenance needs, and cost-saving opportunities.", 
-
-"Collaborated with cross-functional teams to implement field-based efficiency improvements and validate their impact on equipment performance."
-    ]
-  },
-  {
-    title: "Manufacturing Engg. Intern",
-    meta: "Bajaj Auto Ltd · 06/2017 – 07/2017",
-    details: [
-"Conducted value stream mapping in the automotive paint shop, identifying process bottlenecks and proposing changes that improved throughput and reduced lead time by 4%.",
-
-"Led a Kaizen initiative by evaluating different paint and lacquer application methods, optimizing the process to reduce application and drying times.",
-
-"Performed detailed process analysis and timing studies to pinpoint bottlenecks and implement efficiency improvements."
-    ]
-  },
-  {
-    title: "Vehicle Inspection Intern",
-    meta: "Maruti Suzuki India Ltd · 06/2016 – 07/2016",
-    details: [
-"Investigated vehicle water ingress issues during shower testing, observed defect patterns, and suggested potential improvements for better sealing performance.",
-
-"Performed hands-on inspections of vehicle components and assemblies to identify issues affecting durability and performance.",
-
-"Presented observations and recommendations to engineers, contributing to design improvements."
-    ]
+    setTimeout(() => {
+      loading.style.display = "none";
+      main.style.display = "block";
+      main.style.opacity = "1";
+    }, 800);
   }
-];
+}, 20);
 
-// Initialize: mute all except first active
-timelineItems.forEach(item => {
-  if (!item.classList.contains('active')) item.classList.add('muted');
+/* HAMBURGER TOGGLE */
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+
+hamburger.addEventListener("click", () => {
+  // Toggle mobile menu visibility
+  mobileMenu.classList.toggle("show");
+
+  // Toggle hamburger X animation
+  hamburger.classList.toggle("active");
 });
 
-timelineItems.forEach(item => {
-  item.addEventListener('click', () => {
-    timelineItems.forEach(i => {
-      i.classList.remove('active');
-      i.classList.add('muted');
-    });
+// Smooth scroll for mobile menu links
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default anchor jump
+    const targetId = link.getAttribute("href").substring(1); // Get target id without #
+    const targetSection = document.getElementById(targetId);
+    
+    if(targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    }
 
-    item.classList.add('active');
-    item.classList.remove('muted');
-
-    const data = timelineData[item.dataset.id];
-    detailPanel.innerHTML = `<h2>${data.title}</h2>
-                             <div class="meta">${data.meta}</div>
-                             ${data.details.map(d => `<p>• ${d}</p>`).join('')}`;
+    // Close mobile menu after clicking
+    mobileMenu.classList.remove("show");
+    hamburger.classList.remove("active");
   });
 });
 
-// ===== PROJECT PANEL =====
-const projectsData = [
-  {
-    title: "Identification of Structural Dynamic Design Elements through the Topology Optimization of Housing Components in Electrified Powertrains",
-    details: [
-  `Achieved an overall 16.4% increase in the first three eigenfrequencies of drivetrain housings, improving structural dynamic stiffness relevant to EV NVH`, 
-
-  `Mode-wise improvements on a representative left-side drive mount: 1st bending mode 2007 to 2579 Hz, 2nd mode 2803 to 3189 Hz, mass maintained (4 kg)`, 
-
-  `Conducted multi-variant topology optimization on 8 components, generating 18 design variants per component.`,   
-
-  `Automated CAE workflow integrating MATLAB, Python, and Abaqus eliminated manual setup of 100+ models, enabling rapid large-scale simulation and design-space exploration.
-The workflow supported optimization and analysis of (108 models) within one week, demonstrating workflow efficiency`,  
-
-  `Applied voxel-based spatial classification to extract recurring geometric features (ribs, curvature, edges) and transfer them to baseline geometries, achieving performance gains without rerunning optimization`, 
-
-  `Established a generalizable methodology extensible to downstream analyses like transfer path analysis, reducing reliance on empirical rules and prototyping`
-    ]
-  },
-  {
-    title: "Identifying sensitive modelling parameters on the NVH behaviour of an electrical machine",
-    details: [
-  `Performed sensitivity analysis on an electrical machine to study NVH behaviour across multiple RPM ranges`, 
-
-  `Used the Morris Method to efficiently screen and rank input parameters, reducing computational cost for subsequent analysis`, 
-
-
-  `Ran eMBS simulations in FIRST software with parameter variations applied via Python scripts and Excel configuration files`, 
-
-  `Applied the μ* metric from Morris Method to handle non-monotonic, time-dependent outputs`, 
-
-  `Performed eFAST to quantify first-order and total effects, capturing both direct contributions and parameter interactions`, 
-
-  `Managed over 120 model evaluations using multi-processing, covering the parameter space while minimizing computation time`, 
-
- `Identified critical input parameters that dominate NVH response trends, guiding focused engineering efforts to improve system performance without exhaustive experimentation`, 
-
-  `Normalized sensitivity trends over RPM ranges provided insights for informed design optimization of electrical machine components`
-
-    ]
-  },
-  {
-    title: "Angular Position Prediction of a Damped Pendulum using Physics-Informed Artificial Neural Network",
-    details: [
- `Collaborated in a team to develop a physics-informed neural network for predicting angular positions of a damped pendulum, integrating training data with the governing differential equation for accurate modeling`, 
-
-  `Contributed to hyperparameter optimization using a grid search approach, tuning activation functions, number of hidden layers, neurons per layer, learning rate, residual factor, and training epochs to maximize model accuracy`, 
-
-  `Executed model training and validation using Flux.jl in Julia, ensuring efficient batch processing, convergence, and reproducibility of results`, 
-
-  `Performed comparative analysis against analytical and numerical solutions, achieving an R² score of 0.99 using the optimized network architecture`, 
-
-  `Documented methodology, workflow, and findings in the project report, highlighting key insights and lessons learned from the neural network implementation`, 
-
-  `Demonstrated the importance of periodic activation functions and balanced network architecture for efficient, scalable, and accurate physics-informed modeling`
-]
-  },
-
-  {
-    title: "Intelligent Monitoring of the Bicycle Tire Pressure",
-    details: [
-`Collaborated in a team to design and implement a fully connected feed-forward neural network to predict bicycle tire pressures using acceleration data collected from normal and fat bikes`, 
-
-  `Engaged in data preprocessing workflow, including histogram binning of acceleration data to standardize inputs across six different measurement groups for accurate model training`, 
-
-  `Contributed to network generation, including defining the architecture with 3 hidden layers (7, 10, 7 neurons) and an input/output layer aligned with histogram-based feature vectors`, 
-
-  `Performed training of the neural network using Resilient Backpropagation, implementing k-fold cross-validation to evaluate model performance and generalization capability`, 
- 
-`Documented methodology, architecture, training process, and project findings, ensuring clear reporting of workflow, hyperparameter selection, and evaluation results`, 
- 
-]
-  }
-];
-
-const projectNames = document.querySelectorAll('.project-name');
-const projectDetail = document.getElementById('projectDetail');
-
-// Create a single tooltip for grades
-const gradeTooltip = document.createElement('div');
-gradeTooltip.classList.add('grade-tooltip');
-document.body.appendChild(gradeTooltip);
-
-projectNames.forEach(name => {
-  const gradesMap = {
-    "Master's Thesis": {filled: 10, grade: "1.0", text: "Very Good"},
-    "Research Project": {filled: 8, grade: "1.7", text: "Good"},
-    "Angular Positioning": {filled: 9, grade: "1.3", text: "Very Good"},
-    "Tire Pressure Monitoring": {filled: 8, grade: "1.7", text: "Good"}
-  };
-
-  const data = gradesMap[name.innerText];
-  if (!data) return;
-
-  const container = document.createElement('div');
-  container.classList.add('grade-bar');
-
-  for (let i = 1; i <= 10; i++) {
-    const circle = document.createElement('div');
-    circle.classList.add('grade-circle');
-    if (i <= data.filled) circle.classList.add('filled');
-
-     // ===== TOOLTIP EVENT LISTENERS =====
-    circle.addEventListener('mouseenter', () => {
-      gradeTooltip.innerText = "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)\nGrades: 1.0, 1.3, 1.7, 2.0, 2.3, 2.7, ..., 4.0, 5.0";
-      gradeTooltip.style.opacity = '1';
-    });
-    circle.addEventListener('mousemove', (e) => {
-      const padding = 8;
-      let x = e.clientX + padding;
-      let y = e.clientY + padding;
-      const rect = gradeTooltip.getBoundingClientRect();
-      if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - padding;
-      if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - padding;
-      gradeTooltip.style.left = x + 'px';
-      gradeTooltip.style.top = y + 'px';
-    });
-    circle.addEventListener('mouseleave', () => {
-      gradeTooltip.style.opacity = '0';
-    });
-
-    container.appendChild(circle);
-  }
-
-const gradeContainer = document.createElement('div');
-gradeContainer.classList.add('grade-text-container');
-
-const gradeValue = document.createElement('div');
-gradeValue.classList.add('grade-value');
-gradeValue.innerText = data.grade;
-
-const gradeLabel = document.createElement('div');
-gradeLabel.classList.add('grade-label');
-gradeLabel.innerText = data.text;
-
-gradeContainer.appendChild(gradeValue);
-gradeContainer.appendChild(gradeLabel);
-
-container.appendChild(gradeContainer);
-
-  name.appendChild(container); // append under project name
-
-    // --- Add click listener to update project detail ---
-  name.addEventListener('click', () => {
-    projectNames.forEach(n => n.classList.remove('active'));
-    name.classList.add('active');
-
-    const project = projectsData[name.dataset.id];
-    projectDetail.innerHTML = `<h2>${project.title}</h2>
-      ${project.details.map(d => `<p>• ${d}</p>`).join('')}`;
+// Optional: smooth scroll for desktop nav links as well
+document.querySelectorAll(".nav-grid a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").substring(1);
+    const targetSection = document.getElementById(targetId);
+    if(targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    }
   });
 });
 
 
-// ===== TOP-LEFT AND TOP-RIGHT FADE ON SCROLL =====
-const topLeftText = document.getElementById('top-left-text');
-const topRightNav = document.getElementById('top-right-nav');
+/* ABOUT ME ANIMATE SECTION ON SCROLL */
+const aboutTitle = document.querySelector('.about-title');
+const aboutContent = document.querySelector('.about-content');
+let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
+  const aboutSection = document.getElementById('about');
+  const rect = aboutSection.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
 
-  topLeftText.style.opacity = scrollY > 20 ? '0' : '1';
-  topLeftText.style.transform = scrollY > 20 ? 'translateY(-20px)' : 'translateY(0)';
-
-  topRightNav.style.opacity = scrollY > 20 ? '0' : '1';
-  topRightNav.style.transform = scrollY > 20 ? 'translateY(-20px)' : 'translateY(0)';
-});
-
-// ===== SMOOTH SCROLL FOR TOP-RIGHT NAV =====
-const navItems = document.querySelectorAll('#top-right-nav li');
-navItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.dataset.target;
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      const offset = targetElement.offsetTop - 20;
-      window.scrollTo({ top: offset, behavior: 'smooth' });
+  // Animate only when scrolling down and section is in viewport
+  if (rect.top < windowHeight * 0.8 && rect.bottom > windowHeight * 0.2) {
+    if (window.scrollY > lastScrollY) {
+      aboutTitle.classList.add('show');
+      aboutContent.classList.add('show');
     }
-  });
-});
-
-// ===== SKILL TOOLTIP (SMART POSITIONING) =====
-const skillItems = document.querySelectorAll('.skill-item');
-const skillTooltip = document.getElementById('skillTooltip');
-
-skillItems.forEach(skill => {
-  skill.addEventListener('mouseenter', () => {
-    skillTooltip.innerText = `Applied in: ${skill.dataset.projects}`;
-    skillTooltip.style.opacity = '1';
-  });
-
-  skill.addEventListener('mousemove', (e) => {
-    const tooltipRect = skillTooltip.getBoundingClientRect();
-    const padding = 12;
-
-    let x = e.clientX + padding; // default right
-    let y = e.clientY + padding; // default below
-
-    // Flip horizontally if overflowing right
-    if (x + tooltipRect.width > window.innerWidth) {
-      x = e.clientX - tooltipRect.width - padding; // move left
-    }
-
-    // Prevent going off left edge
-    if (x < padding) x = padding;
-
-    // Flip vertically if overflowing bottom
-    if (y + tooltipRect.height > window.innerHeight) {
-      y = e.clientY - tooltipRect.height - padding; // move above
-    }
-
-    // Prevent going off top edge
-    if (y < padding) y = padding;
-
-    skillTooltip.style.left = x + 'px';
-    skillTooltip.style.top = y + 'px';
-  });
-
-  skill.addEventListener('mouseleave', () => {
-    skillTooltip.style.opacity = '0';
-    skillTooltip.innerText = ''; // clear content to avoid sticking
-  });
-});
-
-// ===== EDUCATION GRADES DATA =====
-const eduGradesMap = {
-  "MSc. Computer-Aided Conception and Production in Mechanical Engineering": {
-    filled: 8,
-    grade: "1.8",
-    text: "German Scale",
-    scale: "German Scale: 1.0 (Very Good) → 4.0 (Sufficient), 5.0 (Fail)"
-  },
-  "BSc. Automobile Engineering": {
-    filled: 9, // approximate filling for 8.98/10
-    grade: "8.98",
-    text: "Indian Scale",
-    scale: "Indian Scale: 10.0 (Excellent) → 5.0 (Pass), <5 Fail"
-  }
-};
-
-const eduItems = document.querySelectorAll('.edu-item');
-
-// Create a single tooltip for education grades
-const eduTooltip = document.createElement('div');
-eduTooltip.classList.add('grade-tooltip');
-document.body.appendChild(eduTooltip);
-
-eduItems.forEach(item => {
-  const title = item.querySelector('h2').innerText;
-  const data = eduGradesMap[title];
-  if (!data) return;
-
-  // Create grade bar container
-  const container = document.createElement('div');
-  container.classList.add('grade-bar');
-
-  // Create 10 circles, fill only first `data.filled`
-  for (let i = 1; i <= 10; i++) {
-    const circle = document.createElement('div');
-    circle.classList.add('grade-circle');
-    if (i <= data.filled) circle.classList.add('filled');
-
-    // Tooltip events
-    circle.addEventListener('mouseenter', () => {
-      eduTooltip.innerText = data.scale;
-      eduTooltip.style.opacity = '1';
-    });
-    circle.addEventListener('mousemove', e => {
-      const padding = 8;
-      eduTooltip.style.left = (e.clientX + padding) + 'px';
-      eduTooltip.style.top = (e.clientY + padding) + 'px';
-    });
-    circle.addEventListener('mouseleave', () => {
-      eduTooltip.style.opacity = '0';
-    });
-
-    container.appendChild(circle);
   }
 
-  // Grade text
-  const gradeText = document.createElement('span');
-  gradeText.style.fontSize = '16px';
-  gradeText.style.marginLeft = '6px';
-  gradeText.innerText = `${data.grade} (${data.text})`;
+  lastScrollY = window.scrollY;
+});
 
-  // Tooltip for grade text
-  gradeText.addEventListener('mouseenter', () => {
-    eduTooltip.innerText = data.scale;
-    eduTooltip.style.opacity = '1';
+
+
+/* ===== EXPERIENCE SECTION ===== */
+const expCards = document.querySelectorAll(".experience-card");
+const expLeft = document.querySelector(".experience-arrow.left");
+const expRight = document.querySelector(".experience-arrow.right");
+const years = document.querySelectorAll(".experience-timeline .year");
+const dots = document.querySelectorAll(".experience-timeline .dot");
+
+let expIndex = 0;
+
+function updateExperience() {
+  const expandedCard = document.querySelector(".experience-card.expanded");
+
+  expCards.forEach((card, i) => {
+    card.classList.remove("active", "prev", "next");
+
+    if (!expandedCard) {
+      if (i === expIndex) card.classList.add("active");
+      else if (i === (expIndex - 1 + expCards.length) % expCards.length)
+        card.classList.add("prev");
+      else if (i === (expIndex + 1) % expCards.length)
+        card.classList.add("next");
+
+      card.classList.remove("expanded");
+    }
   });
-  gradeText.addEventListener('mousemove', e => {
-    const padding = 8;
-    eduTooltip.style.left = (e.clientX + padding) + 'px';
-    eduTooltip.style.top = (e.clientY + padding) + 'px';
+
+  years.forEach((y, i) => y.classList.toggle("active", i === expIndex));
+  dots.forEach((d, i) => d.classList.toggle("active", i === expIndex));
+}
+
+
+/* ===== EXPERIENCE SECTION FADE-IN TITLE ONLY ON SCROLL DOWN ===== */
+const experienceTitle = document.querySelector('.experience-title'); // add class to your <h2> or <h3> title
+
+if (experienceTitle) {
+  const expObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show'); // fade-in only
+          observer.unobserve(entry.target);   // stop observing, so it won't animate again
+        }
+      });
+    },
+    {
+      threshold: 0.25,           // trigger when 25% of title is visible
+      rootMargin: "0px 0px -10% 0px" // optional for smoother effect
+    }
+  );
+
+  expObserver.observe(experienceTitle);
+}
+
+
+// Carousel arrows
+expRight.addEventListener("click", () => {
+  if (document.querySelector(".experience-card.expanded")) return;
+  expIndex = (expIndex + 1) % expCards.length;
+  updateExperience();
+});
+
+expLeft.addEventListener("click", () => {
+  if (document.querySelector(".experience-card.expanded")) return;
+  expIndex = (expIndex - 1 + expCards.length) % expCards.length;
+  updateExperience();
+});
+
+// More Details / Close Buttons
+expCards.forEach((card) => {
+  const detailsBtn = card.querySelector(".exp-details-btn");
+  const closeBtn = card.querySelector(".exp-close-btn");
+
+  if (detailsBtn) {
+    detailsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("expanded");
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.remove("expanded");
+    });
+  }
+});
+
+// Optional: clicking card itself could also expand
+// (if you want card click to expand as well)
+expCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    if (!card.classList.contains("expanded")) {
+      card.classList.add("expanded");
+    }
   });
-  gradeText.addEventListener('mouseleave', () => {
-    eduTooltip.style.opacity = '0';
+});
+
+updateExperience();
+
+
+/* ===== EDUCATION ANIMATION ===== */
+const educationTitle = document.querySelector('.education-title');
+const educationContent = document.querySelector('.education-content');
+
+window.addEventListener('scroll', () => {
+  const educationSection = document.getElementById('education');
+  const rect = educationSection.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  const triggerPoint = windowHeight * 0.7; // adjust 0.5 ~ 0.9 as needed
+
+  if (rect.top <= triggerPoint) {
+    educationTitle.classList.add('show');
+    educationContent.classList.add('show');
+  } else {
+    educationTitle.classList.remove('show');
+    educationContent.classList.remove('show');
+  }
+});
+
+
+/* ===== PROJECTS CAROUSEL ===== */
+const cards = document.querySelectorAll(".project-card");
+const leftArrow = document.querySelector(".projects-arrow.left");
+const rightArrow = document.querySelector(".projects-arrow.right");
+
+let activeIndex = 0;
+
+function updateDeck() {
+  cards.forEach((card, i) => {
+    card.classList.remove("active", "prev", "next");
+
+    if (i === activeIndex) card.classList.add("active");
+    else if (i === (activeIndex - 1 + cards.length) % cards.length)
+      card.classList.add("prev");
+    else if (i === (activeIndex + 1) % cards.length)
+      card.classList.add("next");
+  });
+}
+
+const projectsSection = document.getElementById("projects");
+window.addEventListener("scroll", () => {
+  const rect = projectsSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7 && rect.bottom > 0) {
+    projectsTitle.classList.add("show");
+  } else {
+    projectsTitle.classList.remove("show");
+  }
+});
+
+rightArrow.addEventListener("click", () => {
+  activeIndex = (activeIndex + 1) % cards.length;
+  updateDeck();
+});
+
+leftArrow.addEventListener("click", () => {
+  activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+  updateDeck();
+});
+
+updateDeck();
+
+/* Expand / Close */
+cards.forEach(card => {
+  const detailsBtn = card.querySelector(".details-btn");
+  const closeBtn = card.querySelector(".close-btn");
+
+  detailsBtn.addEventListener("click", () => {
+    card.classList.add("expanded");
+    leftArrow.style.pointerEvents = "none";
+    rightArrow.style.pointerEvents = "none";
   });
 
-  container.appendChild(gradeText);
+  closeBtn.addEventListener("click", () => {
+    card.classList.remove("expanded");
+    leftArrow.style.pointerEvents = "auto";
+    rightArrow.style.pointerEvents = "auto";
+  });
+});
 
-  // Remove old grade paragraph if exists
-  const oldGrade = Array.from(item.querySelectorAll('p')).find(p => p.innerText.includes('Grade'));
-  if (oldGrade) oldGrade.remove();
+/* Title animation on scroll */
+const projectsTitle = document.querySelector(".projects-title");
 
-  // Append new grade bar
-  item.appendChild(container);
+window.addEventListener("scroll", () => {
+  const rect = document.getElementById("projects").getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7) {
+    projectsTitle.classList.add("show");
+  }
+});
+
+
+/* ===== SKILLS ANIMATION ===== */
+const skillsTitle = document.querySelector('.skills-title');
+const skillsContent = document.querySelector('.skills-content');
+
+window.addEventListener('scroll', () => {
+  const skillsSection = document.getElementById('skills');
+  const rect = skillsSection.getBoundingClientRect();
+  const trigger = window.innerHeight * 0.7;
+
+  if (rect.top <= trigger) {
+    skillsTitle.classList.add('show');
+    skillsContent.classList.add('show');
+  }
+});
+
+const skillsSection = document.getElementById("skills");
+window.addEventListener("scroll", () => {
+  const rect = skillsSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7 && rect.bottom > 0) {
+    skillsTitle.classList.add("show");
+    skillsContent.classList.add("show");
+  } else {
+    skillsTitle.classList.remove("show");
+    skillsContent.classList.remove("show");
+  }
+});
+
+/* ===== CONTACT ANIMATION ===== */
+const contactTitle = document.querySelector('.contact-title');
+const contactContent = document.querySelector('.contact-content');
+
+
+window.addEventListener('scroll', () => {
+  const contactSection = document.getElementById('contact');
+  const rect = contactSection.getBoundingClientRect();
+  const trigger = window.innerHeight * 0.7;
+
+  if (rect.top <= trigger) {
+    contactTitle.classList.add('show');
+    contactContent.classList.add('show');
+
+  }
+});
+
+const contactSection = document.getElementById("contact");
+window.addEventListener("scroll", () => {
+  const rect = contactSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7 && rect.bottom > 0) {
+    contactTitle.classList.add("show");
+    contactContent.classList.add("show");
+  } else {
+    contactTitle.classList.remove("show");
+    contactContent.classList.remove("show");
+  }
+});
+
+/* ===== DYNAMIC SCROLL DOWN (NEXT VIEWPORT) ===== */
+
+// All main sections in order 
+
+const sections = [ document.getElementById("hero"), document.getElementById("about"), 
+document.getElementById("experience"), document.getElementById("education"), 
+document.getElementById("projects"), 
+document.getElementById("skills"), 
+document.getElementById("contact") 
+]; 
+
+const scrollDownBtn = document.getElementById("scrollDown");
+
+scrollDownBtn.addEventListener("click", () => {
+  const currentScroll = window.scrollY + window.innerHeight / 2;
+
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].offsetTop > currentScroll) {
+      sections[i].scrollIntoView({ behavior: "smooth" });
+      break;
+    }
+  }
+});
+
+window.addEventListener("scroll", () => {
+  const contactTop = document.getElementById("contact").offsetTop;
+  const scrollPos = window.scrollY + window.innerHeight / 2;
+
+  if (scrollPos >= contactTop) {
+    scrollDownBtn.style.display = "none";
+  } else {
+    scrollDownBtn.style.display = "block";
+  }
 });
 
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
